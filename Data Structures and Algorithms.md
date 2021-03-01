@@ -44,8 +44,10 @@
 
 ![DataStructures](General/Data%20Structures.png "Data Structures")
 
+### n! > 2^n > n^2 > nlgn > n > lgn > 1
 ![ComplexityChart](General/Complexity%20Chart.png "Complexity Chart")
 
+How to choose your data structure
 ![DataStructureSelection](General/Data%20Structures%20Selection.png "Data Structures Selection")
 -------------------------------------------------------
 ### 1.2 Vector `std::vector`
