@@ -46,9 +46,9 @@
 
 | | | | | |
 |-|-|-|-|-|
-|Sequence containers | array | Array class (class template ) | Static Array | Sequence, Contiguous storage, Fixed-size aggregate |
-|Sequence containers | vector| Vector (class template ) | Dynamic Array | Sequence, Dynamic Array, Allocator-aware
-|Sequence containers | deque | Double ended queue (class template )|
+|Sequence containers | array | Array class (class template ) | Basic Array | Sequence, Contiguous storage, Fixed-size aggregate, Random Access |
+|Sequence containers | vector| Vector (class template ) | Dynamic Array | Sequence, Contiguous storage, Dynamic Array(tail), Allocator-aware, Random Access |
+|Sequence containers | deque | Double ended queue (class template )| Double Ended Queue |Sequence, Non-Contiguous storage, Dynamic Array(head,tail), Allocator-aware, Random Access |
 |Sequence containers |forward_list | Forward list (class template )|
 |Sequence containers |list | List (class template )|
 |-|-|-|
@@ -95,13 +95,13 @@ How to choose your data structure
 - 既可以隨機存取又不會被綁住大小 Just like arrays, vectors use contiguous storage locations for their elements, which means that their elements can also be accessed using offsets on regular pointers to its elements, and just as efficiently as in arrays. But unlike arrays, their size can change dynamically, with their storage being handled automatically by the container.
 - 因為是動態矩陣，當加入參數多到要重新擴大size時，全部複製出去是花時間的 Internally, vectors use a dynamically allocated array to store their elements. This array may need to be reallocated in order to grow in size when new elements are inserted, which implies allocating a new array and moving all elements to it. This is a relatively expensive task in terms of processing time, and thus, vectors do not reallocate each time an element is added to the container.
 - 啥時要增大的策略可以自訂，amortized cost=O(n)/n=O(1)，所以append還是很便宜的 Instead, vector containers may allocate some extra storage to accommodate for possible growth, and thus the container may have an actual capacity greater than the storage strictly needed to contain its elements (i.e., its size). Libraries can implement different strategies for growth to balance between memory usage and reallocations, but in any case, reallocations should only happen at logarithmically growing intervals of size so that the insertion of individual elements at the end of the vector can be provided with amortized constant time complexity (see push_back).
-- Therefore, compared to arrays, vectors consume more memory in exchange for the ability to manage storage and grow dynamically in an efficient way.
-- https://www.cplusplus.com/reference/vector/vector/
-- Compared to the other dynamic sequence containers (deques, lists and forward_lists)
+- 比較 Therefore, compared to arrays, vectors consume more memory in exchange for the ability to manage storage and grow dynamically in an efficient way.
+- 比較 Compared to the other dynamic sequence containers (deques, lists and forward_lists)
   - vectors are very efficient accessing its elements (just like arrays)
   - relatively efficient adding or removing elements from its end. 
   - For operations that involve inserting or removing elements at positions other than the end, they perform worse than the others
   - have less consistent iterators and references than lists and forward_lists.
+- https://www.cplusplus.com/reference/vector/vector/
 - Sequence
   - Elements in sequence containers are **ordered in a strict linear sequence**. Individual elements are accessed by their position in this sequence.
 - Dynamic array
@@ -171,6 +171,22 @@ v.clear();
 ```
 -------------------------------------------------------
 ### 1.3 Deque `std::deque`
+- Double ended queue. deque (usually pronounced like "deck") is an irregular acronym of double-ended queue. Double-ended queues are sequence containers with dynamic sizes that can be expanded or contracted on both ends (either its front or its back).
+- 通常是由動態矩陣實做的，可隨機存取(透過iter)，可頭尾變動大小 Specific libraries may implement deques in different ways, generally as some form of dynamic array. But in any case, they allow for the individual elements to be accessed directly through random access iterators, with storage handled automatically by expanding and contracting the container as needed.
+- 雖然可插頭尾，但不保證記憶體存的順序連序 Therefore, they provide a functionality similar to vectors, but with efficient insertion and deletion of elements also at the beginning of the sequence, and not only at its end. But, unlike vectors, deques are not guaranteed to store all its elements in contiguous storage locations: accessing elements in a deque by offsetting a pointer to another element causes undefined behavior.
+- 比較 For operations that involve frequent insertion or removals of elements at positions other than the beginning or the end, deques perform worse and have less consistent iterators and references than lists and forward lists.
+- 比較 vectors and deques
+  - provide a very similar interface and can be used for similar purposes, 
+  - While vectors use a single array that needs to be occasionally reallocated for growth, the elements of a deque can be scattered in different chunks of storage, with the container keeping the necessary information internally to provide direct access to any of its elements in constant time and with a uniform sequential interface (through iterators). 
+  - Therefore, deques are a little more complex internally than vectors, but this allows them to grow more efficiently under certain circumstances, especially with very long sequences, where reallocations become more expensive.
+- https://www.cplusplus.com/reference/deque/deque/
+- Sequence
+  - Elements in sequence containers are **ordered in a strict linear sequence**. Individual elements are accessed by their position in this sequence.
+- Dynamic array
+  - Generally implemented as a dynamic array, it allows direct access to any element in the sequence and provides relatively fast **addition/removal** of elements at the **beginning or the end of** the sequence.
+- Allocator-aware
+  - The container uses an allocator object to **dynamically handle its storage needs**. 
+
 **Use for**
 * Similar purpose of `std::vector`
 * Basically `std::vector` with efficient `push_front` and `pop_front`
