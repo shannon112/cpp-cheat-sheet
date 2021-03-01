@@ -50,7 +50,7 @@
 |Sequence containers | vector| Vector (class template ) | Dynamic Array | Sequence, Contiguous storage, Dynamic Array(tail), Allocator-aware, Random Access |
 |Sequence containers | deque | Double ended queue (class template )| Double Ended Queue |Sequence, Non-Contiguous storage, Dynamic Array(head,tail), Allocator-aware, Random Access | 
 |Sequence containers |forward_list | Forward list (class template )| Singly Linked List |Sequence, Non-Contiguous storage, Linked List(next), Allocator-aware, Linear Access | 
-|Sequence containers |list | List (class template )|
+|Sequence containers |list | List (class template )| Doubly Linked List | Sequence, Non-Contiguous storage, Linked List(next,prev), Allocator-aware, Linear Access |
 |-|-|-|
 |Container adaptors  |stack| LIFO stack (class template )
 |Container adaptors  |queue|FIFO queue (class template )
@@ -240,6 +240,7 @@ d.clear();
 - 比較 forward_list container and a list container. 
   - The first keeps internally only a link to the next element, while the latter keeps two links per element: one pointing to the next element and one to the preceding one, allowing efficient iteration in both directions
   - but consuming additional storage per element and with a slight higher time overhead inserting and removing elements.
+  - forward list somewhat smaller and more efficient.
 - 比較 Compared to other base standard sequence containers (array, vector and deque)
   - forward_list perform generally better in inserting, extracting and moving elements in any position within the container
   - therefore also in algorithms that make intensive use of these, like sorting algorithms.
@@ -259,6 +260,16 @@ d.clear();
 
 -------------------------------------------------------
 ### 1.6 List `std::list`
+- Lists are sequence containers that allow constant time insert and erase operations anywhere within the sequence, and iteration in both directions.
+- List containers are implemented as doubly-linked lists; Doubly linked lists can store each of the elements they contain in different and unrelated storage locations. The ordering is kept internally by the association to each element of a link to the element preceding it and a link to the element following it.
+- https://www.cplusplus.com/reference/list/list/
+- Sequence
+  - Elements in sequence containers are ordered in a strict linear sequence. Individual elements are accessed by their position in this sequence.
+- Doubly-linked list
+  - Each element keeps information on how to locate the next and the previous elements, allowing constant time insert and erase operations before or after a specific element (even of entire ranges), but no direct random access.
+Allocator-aware
+    The container uses an allocator object to dynamically handle its storage needs.
+
 **Use for**
 * Insertion into the middle/beginning of the list
 * Efficient sorting (pointer swap vs. copying)
