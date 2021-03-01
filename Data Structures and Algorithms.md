@@ -9,9 +9,10 @@
 	- [1.0 Data Structures](#10-data-structures)
 		- [1.1 Overview](#11-overview)
 		- [1.2 Array `std::array`](#12-array-stdarray)
-		- [1.2 Vector `std::vector`](#12-vector-stdvector)
-		- [1.3 Deque `std::deque`](#13-deque-stddeque)
-		- [1.4 List `std::list` and `std::forward_list`](#14-list-stdlist-and-stdforward_list)
+		- [1.3 Vector `std::vector`](#13-vector-stdvector)
+		- [1.4 Deque `std::deque`](#14-deque-stddeque)
+		- [1.5 Forward List `std::forward_list`](#15-forward_list-stdforward_list)
+		- [1.6 List `std::list`](#16-list-stdlist)
 		- [1.5 Map `std::map` and `std::unordered_map`](#15-map-stdmap-and-stdunordered_map)
 		- [1.6 Set `std::set`](#16-set-stdset)
 		- [1.7 Stack `std::stack`](#17-stack-stdstack)
@@ -73,7 +74,7 @@
 ### n! > 2^n > n^2 > nlgn > n > lgn > 1
 ![ComplexityChart](General/Complexity%20Chart.png "Complexity Chart")
 
-How to choose your data structure
+### How to choose your data structure
 ![DataStructureSelection](General/Data%20Structures%20Selection.png "Data Structures Selection")
 
 -------------------------------------------------------
@@ -234,6 +235,8 @@ d.pop_back();                   // tail
 // Clear
 d.clear();
 ```
+
+-------------------------------------------------------
 ### 1.5 Forward List `std::forward_list`
 - Forward lists are sequence containers that allow constant time insert and erase operations anywhere within the sequence.
 - 實做 Forward lists are implemented as singly-linked lists; Singly linked lists can store each of the elements they contain in different and unrelated storage locations. The ordering is kept by the association to each element of a link to the next element in the sequence.
@@ -349,6 +352,7 @@ l.sort();
 // Reverse: Reverse the list order
 l.reverse();
 ```
+
 -------------------------------------------------------
 ### 1.5 Map `std::map` and `std::unordered_map`
 **Use for**
