@@ -8,6 +8,7 @@
 	- [Table of Contents](#table-of-contents)
 	- [1.0 Data Structures](#10-data-structures)
 		- [1.1 Overview](#11-overview)
+		- [1.2 Array `std::array`](#12-array-stdarray)
 		- [1.2 Vector `std::vector`](#12-vector-stdvector)
 		- [1.3 Deque `std::deque`](#13-deque-stddeque)
 		- [1.4 List `std::list` and `std::forward_list`](#14-list-stdlist-and-stdforward_list)
@@ -39,6 +40,31 @@
 
 ## 1.0 Data Structures
 ### 1.1 Overview
+- Container Adaptors. Container adaptors are not full container classes, but classes that provide a specific interface relying on an object of one of the container classes (such as deque or list) to handle the elements. The underlying container is encapsulated in such a way that its elements are accessed by the members of the container adaptor independently of the underlying container class used.
+- Associative. Elements in associative containers are referenced by their key and not by their absolute position in the container.
+- Ordered. The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
+
+| | | | | |
+|-|-|-|-|-|
+|Sequence containers | array | Array class (class template ) | Static Array | Sequence, Contiguous storage, Fixed-size aggregate |
+|Sequence containers | vector| Vector (class template ) |
+|Sequence containers | deque | Double ended queue (class template )|
+|Sequence containers |forward_list | Forward list (class template )|
+|Sequence containers |list | List (class template )|
+|-|-|-|
+|Container adaptors  |stack| LIFO stack (class template )
+|Container adaptors  |queue|FIFO queue (class template )
+|Container adaptors  |priority_queue|Priority queue (class template )
+|-|-|-|
+|Associative containers|set| Set (class template )
+|Associative containers|multiset| Multiple-key set (class template )
+|Associative containers|map|Map (class template )
+|Associative containers|multimap|Multiple-key map (class template )
+|-|-|-|
+|Unordered associative containers| unordered_set| Unordered Set (class template )
+|Unordered associative containers|unordered_multiset| Unordered Multiset (class template )
+|Unordered associative containers|unordered_map | Unordered Map (class template )
+|Unordered associative containers|unordered_multimap | Unordered Multimap (class template )
 
 ![Legend](General/Legend.png)
 
@@ -50,6 +76,20 @@
 How to choose your data structure
 ![DataStructureSelection](General/Data%20Structures%20Selection.png "Data Structures Selection")
 -------------------------------------------------------
+### 1.2 Array `std::array`
+- Arrays are fixed-size sequence containers: they hold a specific number of elements ordered in a strict linear sequence.
+- 存的型態固定 Internally, an array does not keep any data other than the elements it contains (not even its size, which is a template parameter, fixed on compile time). 
+- 一般使用的中括號就是 It is as efficient in terms of storage size as an ordinary array declared with the language's bracket syntax ([]). 
+- 這邊只是多包了一層 This class merely adds a layer of member and global functions to it, so that arrays can be used as standard containers.
+- 一次要到固定的記憶體空間不能改變大小 Unlike the other standard containers, arrays have a fixed size and do not manage the allocation of its elements through an allocator, they are an aggregate type encapsulating a fixed-size array of elements. Therefore, they cannot be expanded or contracted dynamically (see vector for a similar container that can be expanded).
+- https://www.cplusplus.com/reference/array/array/
+- Sequence 
+  - Elements in sequence containers are **ordered in a strict linear sequence**. Individual elements are accessed by their position in this sequence.
+- Contiguous storage 
+  - The elements are stored in contiguous memory locations, allowing **constant time random access to elements**. Pointers to an element can be offset to access other elements.
+- Fixed-size aggregate
+  - The container uses implicit constructors and destructors to **allocate the required space statically**. Its size is compile-time constant. **No memory or time overhead**. 
+
 ### 1.2 Vector `std::vector`
 **Use for**
 * Simple storage
