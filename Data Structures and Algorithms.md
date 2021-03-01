@@ -48,8 +48,8 @@
 |-|-|-|-|-|
 |Sequence containers | array | Array class (class template ) | Basic Array | Sequence, Contiguous storage, Fixed-size aggregate, Random Access |
 |Sequence containers | vector| Vector (class template ) | Dynamic Array | Sequence, Contiguous storage, Dynamic Array(tail), Allocator-aware, Random Access |
-|Sequence containers | deque | Double ended queue (class template )| Double Ended Queue |Sequence, Non-Contiguous storage, Dynamic Array(head,tail), Allocator-aware, Random Access |
-|Sequence containers |forward_list | Forward list (class template )|
+|Sequence containers | deque | Double ended queue (class template )| Double Ended Queue |Sequence, Non-Contiguous storage, Dynamic Array(head,tail), Allocator-aware, Random Access | 
+|Sequence containers |forward_list | Forward list (class template )| Singly Linked List |Sequence, Non-Contiguous storage, Linked List(next), Allocator-aware, Linear Access | 
 |Sequence containers |list | List (class template )|
 |-|-|-|
 |Container adaptors  |stack| LIFO stack (class template )
@@ -75,6 +75,7 @@
 
 How to choose your data structure
 ![DataStructureSelection](General/Data%20Structures%20Selection.png "Data Structures Selection")
+
 -------------------------------------------------------
 ### 1.2 Array `std::array`
 - Arrays are fixed-size sequence containers: they hold a specific number of elements ordered in a strict linear sequence.
@@ -90,7 +91,8 @@ How to choose your data structure
 - Fixed-size aggregate
   - The container uses implicit constructors and destructors to **allocate the required space statically**. Its size is compile-time constant. **No memory or time overhead**. 
 
-### 1.2 Vector `std::vector`
+-------------------------------------------------------
+### 1.3 Vector `std::vector`
 - Vectors are sequence containers representing arrays that can change in size.
 - 既可以隨機存取又不會被綁住大小 Just like arrays, vectors use contiguous storage locations for their elements, which means that their elements can also be accessed using offsets on regular pointers to its elements, and just as efficiently as in arrays. But unlike arrays, their size can change dynamically, with their storage being handled automatically by the container.
 - 因為是動態矩陣，當加入參數多到要重新擴大size時，全部複製出去是花時間的 Internally, vectors use a dynamically allocated array to store their elements. This array may need to be reallocated in order to grow in size when new elements are inserted, which implies allocating a new array and moving all elements to it. This is a relatively expensive task in terms of processing time, and thus, vectors do not reallocate each time an element is added to the container.
@@ -170,7 +172,7 @@ v.pop_back();                   // tail
 v.clear();
 ```
 -------------------------------------------------------
-### 1.3 Deque `std::deque`
+### 1.4 Deque `std::deque`
 - Double ended queue. deque (usually pronounced like "deck") is an irregular acronym of double-ended queue. Double-ended queues are sequence containers with dynamic sizes that can be expanded or contracted on both ends (either its front or its back).
 - 通常是由動態矩陣實做的，可隨機存取(透過iter)，可頭尾變動大小 Specific libraries may implement deques in different ways, generally as some form of dynamic array. But in any case, they allow for the individual elements to be accessed directly through random access iterators, with storage handled automatically by expanding and contracting the container as needed.
 - 雖然可插頭尾，但不保證記憶體存的順序連序 Therefore, they provide a functionality similar to vectors, but with efficient insertion and deletion of elements also at the beginning of the sequence, and not only at its end. But, unlike vectors, deques are not guaranteed to store all its elements in contiguous storage locations: accessing elements in a deque by offsetting a pointer to another element causes undefined behavior.
@@ -232,8 +234,31 @@ d.pop_back();                   // tail
 // Clear
 d.clear();
 ```
+### 1.5 Forward List `std::forward_list`
+- Forward lists are sequence containers that allow constant time insert and erase operations anywhere within the sequence.
+- 實做 Forward lists are implemented as singly-linked lists; Singly linked lists can store each of the elements they contain in different and unrelated storage locations. The ordering is kept by the association to each element of a link to the next element in the sequence.
+- 比較 forward_list container and a list container. 
+  - The first keeps internally only a link to the next element, while the latter keeps two links per element: one pointing to the next element and one to the preceding one, allowing efficient iteration in both directions
+  - but consuming additional storage per element and with a slight higher time overhead inserting and removing elements.
+- 比較 Compared to other base standard sequence containers (array, vector and deque)
+  - forward_list perform generally better in inserting, extracting and moving elements in any position within the container
+  - therefore also in algorithms that make intensive use of these, like sorting algorithms.
+- 比較 The main drawback of forward_lists and lists compared to these other sequence containers
+  - they lack direct access to the elements by their position; takes linear time in the distance between these.
+  - They also consume some extra memory to keep the linking information associated to each element (which may be an important factor for large lists of small-sized elements).
+- member裡面沒有size，要花O(n)來求 The forward_list class template has been designed with efficiency in mind: By design, it is as efficient as a simple handwritten C-style singly-linked list, and in fact is the only standard container to deliberately lack a size member function for efficiency considerations: due to its nature as a linked list, having a size member that takes constant time would require it to keep an internal counter for its size (as list does). 
+  - This would consume some extra storage and make insertion and removal operations slightly less efficient. 
+  - To obtain the size of a forward_list object, you can use the distance algorithm with its begin and end, which is an operation that takes linear time.
+- https://www.cplusplus.com/reference/forward_list/forward_list/
+- Sequence
+  - Elements in sequence containers are ordered in a strict linear sequence. Individual elements are accessed by their position in this sequence.
+- Linked list
+  - Each element keeps information on how to locate the next element, allowing constant time insert and erase operations after a specific element (even of entire ranges), but no direct random access.
+- Allocator-aware
+  - The container uses an allocator object to dynamically handle its storage needs. 
+
 -------------------------------------------------------
-### 1.4 List `std::list` and `std::forward_list`
+### 1.6 List `std::list`
 **Use for**
 * Insertion into the middle/beginning of the list
 * Efficient sorting (pointer swap vs. copying)
