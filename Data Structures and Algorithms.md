@@ -47,7 +47,7 @@
 | | | | | |
 |-|-|-|-|-|
 |Sequence containers | array | Array class (class template ) | Static Array | Sequence, Contiguous storage, Fixed-size aggregate |
-|Sequence containers | vector| Vector (class template ) |
+|Sequence containers | vector| Vector (class template ) | Dynamic Array | Sequence, Dynamic Array, Allocator-aware
 |Sequence containers | deque | Double ended queue (class template )|
 |Sequence containers |forward_list | Forward list (class template )|
 |Sequence containers |list | List (class template )|
@@ -91,6 +91,24 @@ How to choose your data structure
   - The container uses implicit constructors and destructors to **allocate the required space statically**. Its size is compile-time constant. **No memory or time overhead**. 
 
 ### 1.2 Vector `std::vector`
+- Vectors are sequence containers representing arrays that can change in size.
+- 既可以隨機存取又不會被綁住大小 Just like arrays, vectors use contiguous storage locations for their elements, which means that their elements can also be accessed using offsets on regular pointers to its elements, and just as efficiently as in arrays. But unlike arrays, their size can change dynamically, with their storage being handled automatically by the container.
+- 因為是動態矩陣，當加入參數多到要重新擴大size時，全部複製出去是花時間的 Internally, vectors use a dynamically allocated array to store their elements. This array may need to be reallocated in order to grow in size when new elements are inserted, which implies allocating a new array and moving all elements to it. This is a relatively expensive task in terms of processing time, and thus, vectors do not reallocate each time an element is added to the container.
+- 啥時要增大的策略可以自訂，amortized cost=O(n)/n=O(1)，所以append還是很便宜的 Instead, vector containers may allocate some extra storage to accommodate for possible growth, and thus the container may have an actual capacity greater than the storage strictly needed to contain its elements (i.e., its size). Libraries can implement different strategies for growth to balance between memory usage and reallocations, but in any case, reallocations should only happen at logarithmically growing intervals of size so that the insertion of individual elements at the end of the vector can be provided with amortized constant time complexity (see push_back).
+- Therefore, compared to arrays, vectors consume more memory in exchange for the ability to manage storage and grow dynamically in an efficient way.
+- https://www.cplusplus.com/reference/vector/vector/
+- Compared to the other dynamic sequence containers (deques, lists and forward_lists)
+  - vectors are very efficient accessing its elements (just like arrays)
+  - relatively efficient adding or removing elements from its end. 
+  - For operations that involve inserting or removing elements at positions other than the end, they perform worse than the others
+  - have less consistent iterators and references than lists and forward_lists.
+- Sequence
+  - Elements in sequence containers are **ordered in a strict linear sequence**. Individual elements are accessed by their position in this sequence.
+- Dynamic array
+  - Allows **random access** to any element in the sequence, even through pointer arithmetics, and provides relatively fast **addition/removal** of elements **at the end of** the sequence.
+- Allocator-aware
+  - The container uses an allocator object to **dynamically handle its storage needs**. 
+
 **Use for**
 * Simple storage
 * Adding but not deleting
