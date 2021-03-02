@@ -50,7 +50,7 @@
 |-|-|-|-|
 | array | Array class (class template ) | Basic Array | Sequence, Contiguous storage, Fixed-size aggregate, Random Access |
 | vector| Vector (class template ) | Dynamic Array | Sequence, Contiguous storage, Dynamic Array(tail), Allocator-aware, Random Access |
-| deque | Double ended queue (class template )| Double Ended Queue |Sequence, Non-Contiguous storage, Dynamic Array(head,tail), Allocator-aware, Random Access | 
+| deque | Double ended queue (class template )| Double Ended Queue |Sequence, Non-Contiguous storage, Dynamic Array(head,tail), Allocator-aware, Random Access(iter) | 
 |forward_list | Forward list (class template )| Singly Linked List |Sequence, Non-Contiguous storage, Linked List(next), Allocator-aware, Linear Access | 
 |list | List (class template )| Doubly Linked List | Sequence, Non-Contiguous storage, Linked List(next,prev), Allocator-aware, Linear Access |
 
@@ -59,7 +59,7 @@
 |-|-|-|-|
 |stack| LIFO stack (class template ) | Stack (`deque`, vector, list, forward_list) | empty, size, back, push_back, pop_back |
 |queue|FIFO queue (class template ) | Queue (`deque`, list) | empty, size, front, back, push_back, pop_front |
-|priority_queue|Priority queue (class template )
+|priority_queue|Priority queue (class template )| Priority Queue (`vector`, deque) | empty, size, front, push_back, pop_back, Random Access(iter)|
 
 ### Associative containers
 | library | class | data structure | features |
@@ -454,6 +454,19 @@ q.pop();
 ```
 -------------------------------------------------------
 ### 1.9 Priority Queue `std::priority_queue`
+- Priority queues are a type of container adaptors, specifically designed such that its first element is always the greatest of the elements it contains, according to some strict weak ordering criterion.
+- This context is similar to a heap, where elements can be inserted at any moment, and only the max heap element can be retrieved (the one at the top in the priority queue).
+- Priority queues are implemented as container adaptors, which are classes that use an encapsulated object of a specific container class as its underlying container, providing a specific set of member functions to access its elements. Elements are popped from the "back" of the specific container, which is known as the top of the priority queue.
+- The underlying container may be any of the standard container class templates or some other specifically designed container class. The container shall be accessible through `random access iterators` and support the following operations:
+  - empty()
+  - size()
+  - front()
+  - push_back()
+  - pop_back()
+- The standard container classes `vector and deque` fulfill these requirements. 
+- By default, if no container class is specified for a particular priority_queue class instantiation, the standard container `vector` is used.
+- Support of random access iterators is required to keep a heap structure internally at all times. This is done automatically by the container adaptor by automatically calling the algorithm functions make_heap, push_heap and pop_heap when needed.
+
 **Use for**
 * First-In First-Out operations where **priority** overrides arrival time
 * Ex: CPU scheduling (smallest job first, system/user priority)
