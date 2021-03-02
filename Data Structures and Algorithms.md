@@ -213,6 +213,8 @@ v.clear();
   - While vectors use a single array that needs to be occasionally reallocated for growth, the elements of a deque can be scattered in different chunks of storage, with the container keeping the necessary information internally to provide direct access to any of its elements in constant time and with a uniform sequential interface (through iterators). 
   - Therefore, deques are a little more complex internally than vectors, but this allows them to grow more efficiently under certain circumstances, especially with very long sequences, where reallocations become more expensive.
 - https://www.cplusplus.com/reference/deque/deque/
+- 實做 As opposed to std::vector, the elements of a deque are **not stored contiguously**: typical implementations use a sequence of **individually allocated fixed-size arrays**, with **additional bookkeeping**, which means indexed access to deque must perform **two pointer dereferences**, compared to vector's indexed access which performs only one.
+- 實做 The storage of a deque is automatically expanded and contracted as needed. Expansion of a deque is **cheaper** than the expansion of a std::vector because it does **not involve copying** of the existing elements to a new memory location. On the other hand, deques typically have **large minimal memory cost**; a deque holding just **one element has to allocate its full internal array** (e.g. 8 times the object size on 64-bit libstdc++; 16 times the object size or 4096 bytes, whichever is larger, on 64-bit libc++).
 
 **Use for**
 * Similar purpose of `std::vector`
@@ -220,6 +222,20 @@ v.clear();
 
 **Do not use for**
 * C-style contiguous storage (not guaranteed)
+
+
+**Time Complexity**
+
+| Operation    | Time Complexity |
+|--------------|-----------------|
+| Insert Head  |          `O(1)` |
+| Insert Index |          `O(n)` |
+| Insert Tail  |          `O(1)` |
+| Remove Head  |          `O(1)` |
+| Remove Index |          `O(n)` |
+| Remove Tail  |          `O(1)` |
+| Find Index   |          `O(1)` |
+| Find Object  |          `O(n)` |
 
 **Notes**
 * Pronounced 'deck'
