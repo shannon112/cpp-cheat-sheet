@@ -465,7 +465,9 @@ q.pop();
   - pop_back()
 - The standard container classes `vector and deque` fulfill these requirements. 
 - By default, if no container class is specified for a particular priority_queue class instantiation, the standard container `vector` is used.
-- Support of random access iterators is required to keep a heap structure internally at all times. This is done automatically by the container adaptor by automatically calling the algorithm functions make_heap, push_heap and pop_heap when needed.
+- Support of random access iterators is required to keep a heap structure internally at all times. This is done automatically by the container adaptor by automatically calling the algorithm functions make_heap, push_heap and pop_heap when needed. (Templete including Type, Container, Compare) `NOT EVERYONE SORTED`
+  - min heap: priority_queue<int, vector<int>, greater<int> > gquiz; // Sorted heap in increasing
+  - max heap: priority_queue<int> gquiz; // Sorted heap in non-increasing
 
 **Use for**
 * First-In First-Out operations where **priority** overrides arrival time
