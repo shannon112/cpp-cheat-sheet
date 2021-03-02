@@ -13,9 +13,9 @@
 		- [1.4 Deque `std::deque`](#14-deque-stddeque)
 		- [1.5 Forward List `std::forward_list`](#15-forward-list-stdforward_list)
 		- [1.6 List `std::list`](#16-list-stdlist)
+		- [1.7 Stack `std::stack`](#17-stack-stdstack)
 		- [1.5 Map `std::map` and `std::unordered_map`](#15-map-stdmap-and-stdunordered_map)
 		- [1.6 Set `std::set`](#16-set-stdset)
-		- [1.7 Stack `std::stack`](#17-stack-stdstack)
 		- [1.8 Queue `std::queue`](#18-queue-stdqueue)
 		- [1.9 Priority Queue `std::priority_queue`](#19-priority-queue-stdpriority_queue)
 		- [1.10 Heap `std::priority_queue`](#110-heap-stdpriority_queue)
@@ -45,7 +45,7 @@
 - Associative. Elements in associative containers are referenced by their key and not by their absolute position in the container.
 - Ordered. The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
 
-| | | | | |
+| classification | library | class | data structure | features |
 |-|-|-|-|-|
 |Sequence containers | array | Array class (class template ) | Basic Array | Sequence, Contiguous storage, Fixed-size aggregate, Random Access |
 |Sequence containers | vector| Vector (class template ) | Dynamic Array | Sequence, Contiguous storage, Dynamic Array(tail), Allocator-aware, Random Access |
@@ -53,7 +53,7 @@
 |Sequence containers |forward_list | Forward list (class template )| Singly Linked List |Sequence, Non-Contiguous storage, Linked List(next), Allocator-aware, Linear Access | 
 |Sequence containers |list | List (class template )| Doubly Linked List | Sequence, Non-Contiguous storage, Linked List(next,prev), Allocator-aware, Linear Access |
 |-|-|-|
-|Container adaptors  |stack| LIFO stack (class template )
+|Container adaptors  |stack| LIFO stack (class template ) | Stack (vector, deque, list, forward_list) | empty, size, back, push_back, pop_back |
 |Container adaptors  |queue|FIFO queue (class template )
 |Container adaptors  |priority_queue|Priority queue (class template )
 |-|-|-|
@@ -354,6 +354,52 @@ l.reverse();
 ```
 
 -------------------------------------------------------
+### 1.7 Stack `std::stack`
+- Stacks are a type of container adaptor, specifically designed to operate in a LIFO context (last-in first-out), where elements are inserted and extracted only from one end of the container.
+- stacks are implemented as container adaptors, which are classes that use an encapsulated object of a specific container class as its underlying container, providing a specific set of member functions to access its elements. Elements are pushed/popped from the "back" of the specific container, which is known as the top of the stack.
+- The underlying container may be any of the standard container class templates or some other specifically designed container class. The container shall support the following operations: 
+   - empty
+   - size
+   - back
+   - push_back
+   - pop_back
+- The standard container classes `vector, deque, list and forward list` fulfill these requirements. 
+- By default, if no container class is specified for a particular stack class instantiation, the standard container `deque` is used.
+
+**Use for**
+* First-In Last-Out operations
+* Reversal of elements
+
+**Time Complexity**
+
+| Operation    | Time Complexity |
+|--------------|-----------------|
+| Push         |          `O(1)` |
+| Pop          |          `O(1)` |
+| Top          |          `O(1)` |
+
+**Example Code**
+```c++
+std::stack<int> s;
+
+//---------------------------------
+// Container-Specific Operations
+//---------------------------------
+
+// Push
+s.push(20);
+
+// Size
+unsigned int size = s.size();
+
+// Pop
+s.pop();
+
+// Top
+int top = s.top();
+```
+-------------------------------------------------------
+
 ### 1.5 Map `std::map` and `std::unordered_map`
 **Use for**
 * Key-value pairs
@@ -487,40 +533,7 @@ bool exists = (s.find(20) != s.end());
 unsigned int count = s.count(20);
 ```
 -------------------------------------------------------
-### 1.7 Stack `std::stack`
-**Use for**
-* First-In Last-Out operations
-* Reversal of elements
 
-**Time Complexity**
-
-| Operation    | Time Complexity |
-|--------------|-----------------|
-| Push         |          `O(1)` |
-| Pop          |          `O(1)` |
-| Top          |          `O(1)` |
-
-**Example Code**
-```c++
-std::stack<int> s;
-
-//---------------------------------
-// Container-Specific Operations
-//---------------------------------
-
-// Push
-s.push(20);
-
-// Size
-unsigned int size = s.size();
-
-// Pop
-s.pop();
-
-// Top
-int top = s.top();
-```
--------------------------------------------------------
 ### 1.8 Queue `std::queue`
 **Use for**
 * First-In First-Out operations
