@@ -24,9 +24,9 @@
 		- [1.15 Unordered Multiset `std::multiset`](#115-multiset-stdmultiset)
 		- [1.16 Unordered Map `std::map`](#116-map-stdmap)
 		- [1.17 Unordered Multimap `std::multimap`](#117-multimap-stdmultimap)
-		- [1.18 Heap `std::priority_queue`](#110-heap-stdpriority_queue)
 	- [2.0 Trees](#20-trees)
-		- [2.1 Binary Tree](#21-binary-tree)
+		- [2.0 Heap `std::priority_queue`](#20-heap-stdpriority_queue)
+		- [2.1 Binary Tree `std::map` `std::set`](#21-binary-tree-stdmap-stdset)
 		- [2.2 Balanced Trees](#22-balanced-trees)
 		- [2.3 Binary Search](#23-binary-search)
 		- [2.4 Depth-First Search](#24-depth-first-search)
@@ -54,26 +54,26 @@
 ### Sequence containers
 | library | class | data structure | features |
 |-|-|-|-|
-| array | Array class (class template ) | Basic Array | Sequence, Contiguous storage, Fixed-size aggregate, Random Access |
-| vector| Vector (class template ) | Dynamic Array | Sequence, Contiguous storage, Dynamic Array(tail), Allocator-aware, Random Access |
-| deque | Double ended queue (class template )| Double Ended Queue |Sequence, Non-Contiguous storage, Dynamic Array(head,tail), Allocator-aware, Random Access(iter) | 
-|forward_list | Forward list (class template )| Singly Linked List |Sequence, Non-Contiguous storage, Linked List(next), Allocator-aware, Linear Access | 
-|list | List (class template )| Doubly Linked List | Sequence, Non-Contiguous storage, Linked List(next,prev), Allocator-aware, Linear Access |
+| array | Array class (class template ) | Basic Array | Sequence, Contiguous storage, Fixed-size aggregate, O(1) Random Access([index]) |
+| vector| Vector (class template ) | Dynamic Array | Sequence, Contiguous storage, Dynamic Array(tail), Allocator-aware, O(1) Random Access([index]) |
+| deque | Double ended queue (class template )| Double Ended Queue |Sequence, Non-Contiguous storage, Dynamic Array(head,tail), Allocator-aware, O(1) Random Access([index]) | 
+|forward_list | Forward list (class template )| Singly Linked List |Sequence, Non-Contiguous storage, Linked List(next), Allocator-aware, O(N) Linear Access | 
+|list | List (class template )| Doubly Linked List | Sequence, Non-Contiguous storage, Linked List(next,prev), Allocator-aware, O(N) Linear Access |
 
 ### Container adaptors
 | library | class | data structure | features |
 |-|-|-|-|
 |stack| LIFO stack (class template ) | Stack (`deque`, vector, list, forward_list) | empty, size, back, push_back, pop_back |
 |queue|FIFO queue (class template ) | Queue (`deque`, list) | empty, size, front, back, push_back, pop_front |
-|priority_queue|Priority queue (class template )| Priority Queue a.k.a. Max-Heap or Min-Heap (`vector`, deque) | empty, size, front, push_back, pop_back, Random Access(iter)|
+|priority_queue|Priority queue (class template )| Priority Queue a.k.a. Max-Heap or Min-Heap (`vector`, deque) | empty, size, front, push_back, pop_back, Random Access(private) |
 
 ### Associative containers
 | library | class | data structure | features |
 |-|-|-|-|
-|set| Set (class template ) | Binary Search Tree (nodes, vector, deque) | Associative, Ordered, Set(key=val), Unique-Keys. Allocator-aware |  
-|multiset| Multiple-key set (class template ) | Binary Search Tree (nodes, vector, deque) | Associative, Ordered, Set(key=val), Multiple equivalent keys, Allocator-aware| 
-|map|Map (class template )
-|multimap|Multiple-key map (class template )
+|set| Set (class template ) | Binary Search Tree (nodes, vector, deque) | Associative, Ordered, Set(key=val), Unique-Keys. Allocator-aware, logN Access(iter) |  
+|multiset| Multiple-key set (class template ) | Binary Search Tree (nodes, vector, deque) | Associative, Ordered, Set(key=val), Multiple-equivalent-keys, Allocator-aware, logN Access(iter)| 
+|map|Map (class template ) | Binary Search Tree (nodes, vector, deque) | Associative, Ordered, Map(key&val), Unique-Keys, Allocator-aware, logN Access([key]) | 
+|multimap|Multiple-key map (class template ) | Binary Search Tree (nodes, vector, deque) | Associative, Ordered, Map(key&val), Multiple-equivalent-keys, Allocator-aware, logN Access([key]) | 
 
 ### Unordered associative containers
 | library | class | data structure | features |
@@ -578,6 +578,7 @@ bool exists = (s.find(20) != s.end());
 unsigned int count = s.count(20);
 ```
 -------------------------------------------------------
+
 ### 1.11 Multiset `std::multiset`
 - Multisets are containers that store elements following a specific order, and where multiple elements can have equivalent values.
 - key=val且可重複 In a multiset, the value of an element also identifies it (the value is itself the key, of type T). The value of the elements in a multiset cannot be modified once in the container (the elements are always const), but they can be inserted or removed from the container.
@@ -595,7 +596,26 @@ unsigned int count = s.count(20);
 - Allocator-aware
   - The container uses an allocator object to dynamically handle its storage needs.
 
-### 1.5 Map `std::map` and `std::unordered_map`
+-------------------------------------------------------
+
+### 1.12 Map `std::map`
+- Maps are associative containers that store elements formed by a combination of a key value and a mapped value, following a specific order.
+- key val pairs對. In a map, the key values are generally used to sort and uniquely identify the elements, while the mapped values store the content associated to this key. The types of key and mapped value may differ, and are grouped together in member type value_type, which is a pair type combining both: ```typedef pair<const Key, T> value_type;```
+- 按照Key排序好 Internally, the elements in a map are always sorted by its key following a specific strict weak ordering criterion indicated by its internal comparison object (of type Compare).
+- 直接index會比較慢，但有照順序牌所以iterate會比較快. map containers are generally slower than unordered_map containers to access individual elements by their key, but they allow the direct iteration on subsets based on their order.
+- 隨機存取 The mapped values in a map can be accessed directly by their corresponding key using the `bracket operator ((operator[]).`
+- 實做 Maps are typically implemented as binary search trees.
+- Associative
+  - Elements in associative containers are referenced by their key and not by their absolute position in the container.
+- Ordered
+  - The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
+- Map
+  - Each element associates a key to a mapped value: Keys are meant to identify the elements whose main content is the mapped value.
+- Unique keys
+  - No two elements in the container can have equivalent keys.
+- Allocator-aware
+  - The container uses an allocator object to dynamically handle its storage needs.
+
 **Use for**
 * Key-value pairs
 * Constant lookups by key
@@ -673,7 +693,35 @@ unsigned int count = m.count("key");
 ```
 -------------------------------------------------------
 
-### 1.10 Heap `std::priority_queue`
+### 1.12 Multimap `std::multimap`
+- Multimaps are associative containers that store elements formed by a combination of a key value and a mapped value, following a specific order, and where multiple elements can have equivalent keys.
+- In a multimap, the key values are generally used to sort and uniquely identify the elements, while the mapped values store the content associated to this key. The types of key and mapped value may differ, and are grouped together in member type value_type, which is a pair type combining both: `typedef pair<const Key, T> value_type;`
+- Internally, the elements in a multimap are always sorted by its key following a specific strict weak ordering criterion indicated by its internal comparison object (of type Compare).
+- multimap containers are generally slower than unordered_multimap containers to access individual elements by their key, but they allow the direct iteration on subsets based on their order.
+- Multimaps are typically implemented as binary search trees.
+- Associative
+  - Elements in associative containers are referenced by their key and not by their absolute position in the container.
+- Ordered
+  - The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
+- Map
+  - Each element associates a key to a mapped value: Keys are meant to identify the elements whose main content is the mapped value.
+- Multiple equivalent keys
+  - Multiple elements in the container can have equivalent keys.
+- Allocator-aware
+  - The container uses an allocator object to dynamically handle its storage needs.
+
+-------------------------------------------------------
+### 1.13 Unordered Set `std::unordered_set`
+
+### 1.14 Unordered Multiset `std::unordered_multiset`
+
+### 1.15 Unordered Map `std::unordered_map`
+
+### 1.16 Unordered Multimap `std::unordered_multimap`
+
+-------------------------------------------------------
+## 2.0 Trees
+### 2.0 Heap `std::priority_queue`
 **Notes**
 * A heap is essentially an instance of a priority queue
 * A **min** heap is structured with the root node as the smallest and each child subsequently larger than its parent
@@ -684,9 +732,8 @@ unsigned int count = m.count("key");
 **Max Heap Example (using a binary tree)**
 
 ![MaxHeap](General/MaxHeap.png)
--------------------------------------------------------
-## 2.0 Trees
-### 2.1 Binary Tree
+
+### 2.1 Binary Tree `std::map` `std::set`
 * A binary tree is a tree with at most two (2) child nodes per parent
 * Binary trees are commonly used for implementing `O(log(n))` operations for ordered maps, sets, heaps, and binary search trees
 * Binary trees are **sorted** in that nodes with values greater than their parents are inserted to the **right**, while nodes with values less than their parents are inserted to the **left**
