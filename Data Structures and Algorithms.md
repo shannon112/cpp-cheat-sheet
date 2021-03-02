@@ -76,12 +76,12 @@
 |multimap|Multiple-key map (class template ) | Binary Search Tree (nodes, vector, deque) | Associative, Ordered, Map(key&val), Multiple-equivalent-keys, Allocator-aware, logN Access([key]) | 
 
 ### Unordered associative containers
-| library | class | data structure | features |
+| library | templete params | data structure | features |
 |-|-|-|-|
-| unordered_set| Unordered Set (class template )
-|unordered_multiset| Unordered Multiset (class template )
-|unordered_map | Unordered Map (class template )
-|unordered_multimap | Unordered Multimap (class template )
+| unordered_set| Key, Hash, Pred, Alloc | Hash Table | Associative, Unordered, Set(key=val), Unique-Keys. Allocator-aware, O(1) Random Access([index]) |  
+|unordered_multiset| Key, Hash, Pred, Alloc | Hash Table | 
+|unordered_map | Key, T, Hash, Pred, Alloc | Hash Table |
+|unordered_multimap | Key, T, Hash, Pred, Alloc | Hash Table |
 
 ![Legend](General/Legend.png)
 
@@ -693,7 +693,7 @@ unsigned int count = m.count("key");
 ```
 -------------------------------------------------------
 
-### 1.12 Multimap `std::multimap`
+### 1.13 Multimap `std::multimap`
 - Multimaps are associative containers that store elements formed by a combination of a key value and a mapped value, following a specific order, and where multiple elements can have equivalent keys.
 - In a multimap, the key values are generally used to sort and uniquely identify the elements, while the mapped values store the content associated to this key. The types of key and mapped value may differ, and are grouped together in member type value_type, which is a pair type combining both: `typedef pair<const Key, T> value_type;`
 - Internally, the elements in a multimap are always sorted by its key following a specific strict weak ordering criterion indicated by its internal comparison object (of type Compare).
@@ -711,13 +711,28 @@ unsigned int count = m.count("key");
   - The container uses an allocator object to dynamically handle its storage needs.
 
 -------------------------------------------------------
-### 1.13 Unordered Set `std::unordered_set`
+### 1.14 Unordered Set `std::unordered_set`
+- Unordered sets are containers that store unique elements in no particular order, and which allow for fast retrieval of individual elements based on their value.
+- In an unordered_set, the value of an element is at the same time its key, that identifies it uniquely. Keys are immutable, therefore, the elements in an unordered_set cannot be modified once in the container - they can be inserted and removed, though.
+- 無序 Internally, the elements in the unordered_set are not sorted in any particular order, but organized into buckets depending on their hash values to allow for fast access to individual elements directly by their values (with a constant average time complexity on average).
+- 快速存取，遊走慢 unordered_set containers are faster than set containers to access individual elements by their key, although they are generally less efficient for range iteration through a subset of their elements.
+- Iterators in the container are at least forward iterators.
+- Associative
+  - Elements in associative containers are referenced by their key and not by their absolute position in the container.
+- Unordered
+  - Unordered containers organize their elements using hash tables that allow for fast access to elements by their key.
+- Set
+  - The value of an element is also the key used to identify it.
+- Unique keys
+  -  No two elements in the container can have equivalent keys.
+- Allocator-aware
+  - The container uses an allocator object to dynamically handle its storage needs.
 
-### 1.14 Unordered Multiset `std::unordered_multiset`
+### 1.15 Unordered Multiset `std::unordered_multiset`
 
-### 1.15 Unordered Map `std::unordered_map`
+### 1.16 Unordered Map `std::unordered_map`
 
-### 1.16 Unordered Multimap `std::unordered_multimap`
+### 1.17 Unordered Multimap `std::unordered_multimap`
 
 -------------------------------------------------------
 ## 2.0 Trees
