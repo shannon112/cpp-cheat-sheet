@@ -45,27 +45,37 @@
 - Associative. Elements in associative containers are referenced by their key and not by their absolute position in the container.
 - Ordered. The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
 
-| classification | library | class | data structure | features |
-|-|-|-|-|-|
-|Sequence containers | array | Array class (class template ) | Basic Array | Sequence, Contiguous storage, Fixed-size aggregate, Random Access |
-|Sequence containers | vector| Vector (class template ) | Dynamic Array | Sequence, Contiguous storage, Dynamic Array(tail), Allocator-aware, Random Access |
-|Sequence containers | deque | Double ended queue (class template )| Double Ended Queue |Sequence, Non-Contiguous storage, Dynamic Array(head,tail), Allocator-aware, Random Access | 
-|Sequence containers |forward_list | Forward list (class template )| Singly Linked List |Sequence, Non-Contiguous storage, Linked List(next), Allocator-aware, Linear Access | 
-|Sequence containers |list | List (class template )| Doubly Linked List | Sequence, Non-Contiguous storage, Linked List(next,prev), Allocator-aware, Linear Access |
-|-|-|-|
-|Container adaptors  |stack| LIFO stack (class template ) | Stack (vector, deque, list, forward_list) | empty, size, back, push_back, pop_back |
-|Container adaptors  |queue|FIFO queue (class template )
-|Container adaptors  |priority_queue|Priority queue (class template )
-|-|-|-|
-|Associative containers|set| Set (class template )
-|Associative containers|multiset| Multiple-key set (class template )
-|Associative containers|map|Map (class template )
-|Associative containers|multimap|Multiple-key map (class template )
-|-|-|-|
-|Unordered associative containers| unordered_set| Unordered Set (class template )
-|Unordered associative containers|unordered_multiset| Unordered Multiset (class template )
-|Unordered associative containers|unordered_map | Unordered Map (class template )
-|Unordered associative containers|unordered_multimap | Unordered Multimap (class template )
+### Sequence containers
+| library | class | data structure | features |
+|-|-|-|-|
+| array | Array class (class template ) | Basic Array | Sequence, Contiguous storage, Fixed-size aggregate, Random Access |
+| vector| Vector (class template ) | Dynamic Array | Sequence, Contiguous storage, Dynamic Array(tail), Allocator-aware, Random Access |
+| deque | Double ended queue (class template )| Double Ended Queue |Sequence, Non-Contiguous storage, Dynamic Array(head,tail), Allocator-aware, Random Access | 
+|forward_list | Forward list (class template )| Singly Linked List |Sequence, Non-Contiguous storage, Linked List(next), Allocator-aware, Linear Access | 
+|list | List (class template )| Doubly Linked List | Sequence, Non-Contiguous storage, Linked List(next,prev), Allocator-aware, Linear Access |
+
+### Container adaptors
+| library | class | data structure | features |
+|-|-|-|-|
+|stack| LIFO stack (class template ) | Stack (`deque`, vector, list, forward_list) | empty, size, back, push_back, pop_back |
+|queue|FIFO queue (class template ) | Queue (`deque`, list) | empty, size, front, back, push_back, pop_front |
+|priority_queue|Priority queue (class template )
+
+### Associative containers
+| library | class | data structure | features |
+|-|-|-|-|
+|set| Set (class template )
+|multiset| Multiple-key set (class template )
+|map|Map (class template )
+|multimap|Multiple-key map (class template )
+
+### Unordered associative containers
+| library | class | data structure | features |
+|-|-|-|-|
+| unordered_set| Unordered Set (class template )
+|unordered_multiset| Unordered Multiset (class template )
+|unordered_map | Unordered Map (class template )
+|unordered_multimap | Unordered Multimap (class template )
 
 ![Legend](General/Legend.png)
 
@@ -399,6 +409,80 @@ s.pop();
 int top = s.top();
 ```
 -------------------------------------------------------
+### 1.8 Queue `std::queue`
+- queues are a type of container adaptor, specifically designed to operate in a FIFO context (first-in first-out), where elements are inserted into one end of the container and extracted from the other.
+- queues are implemented as containers adaptors, which are classes that use an encapsulated object of a specific container class as its underlying container, providing a specific set of member functions to access its elements. Elements are pushed into the "back" of the specific container and popped from its "front".
+- The underlying container may be one of the standard container class template or some other specifically designed container class. This underlying container shall support at least the following operations:
+  - empty
+  - size
+  - front
+  - back
+  - push_back
+  - pop_front
+- The standard container classes `deque and list` fulfill these requirements. 
+- By default, if no container class is specified for a particular queue class instantiation, the standard container `deque` is used.
+
+**Use for**
+* First-In First-Out operations
+* Ex: Simple online ordering system (first come first served)
+* Ex: Semaphore queue handling
+* Ex: CPU scheduling (FCFS)
+
+**Notes**
+* Often implemented as a `std::deque`
+
+**Example Code**
+```c++
+std::queue<int> q;
+
+//---------------------------------
+// General Operations
+//---------------------------------
+
+// Insert
+q.push(value);
+
+// Access head, tail
+int head = q.front();       // head
+int tail = q.back();        // tail
+
+// Size
+unsigned int size = q.size();
+
+// Remove
+q.pop();
+```
+-------------------------------------------------------
+### 1.9 Priority Queue `std::priority_queue`
+**Use for**
+* First-In First-Out operations where **priority** overrides arrival time
+* Ex: CPU scheduling (smallest job first, system/user priority)
+* Ex: Medical emergencies (gunshot wound vs. broken arm)
+
+**Notes**
+* Often implemented as a `std::vector`
+
+**Example Code**
+```c++
+std::priority_queue<int> p;
+
+//---------------------------------
+// General Operations
+//---------------------------------
+
+// Insert
+p.push(value);
+
+// Access
+int top = p.top();  // 'Top' element
+
+// Size
+unsigned int size = p.size();
+
+// Remove
+p.pop();
+```
+-------------------------------------------------------
 
 ### 1.5 Map `std::map` and `std::unordered_map`
 **Use for**
@@ -534,68 +618,6 @@ unsigned int count = s.count(20);
 ```
 -------------------------------------------------------
 
-### 1.8 Queue `std::queue`
-**Use for**
-* First-In First-Out operations
-* Ex: Simple online ordering system (first come first served)
-* Ex: Semaphore queue handling
-* Ex: CPU scheduling (FCFS)
-
-**Notes**
-* Often implemented as a `std::deque`
-
-**Example Code**
-```c++
-std::queue<int> q;
-
-//---------------------------------
-// General Operations
-//---------------------------------
-
-// Insert
-q.push(value);
-
-// Access head, tail
-int head = q.front();       // head
-int tail = q.back();        // tail
-
-// Size
-unsigned int size = q.size();
-
-// Remove
-q.pop();
-```
--------------------------------------------------------
-### 1.9 Priority Queue `std::priority_queue`
-**Use for**
-* First-In First-Out operations where **priority** overrides arrival time
-* Ex: CPU scheduling (smallest job first, system/user priority)
-* Ex: Medical emergencies (gunshot wound vs. broken arm)
-
-**Notes**
-* Often implemented as a `std::vector`
-
-**Example Code**
-```c++
-std::priority_queue<int> p;
-
-//---------------------------------
-// General Operations
-//---------------------------------
-
-// Insert
-p.push(value);
-
-// Access
-int top = p.top();  // 'Top' element
-
-// Size
-unsigned int size = p.size();
-
-// Remove
-p.pop();
-```
--------------------------------------------------------
 ### 1.10 Heap `std::priority_queue`
 **Notes**
 * A heap is essentially an instance of a priority queue
