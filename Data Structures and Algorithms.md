@@ -90,7 +90,7 @@
 | library | class | data structure | features |
 |-|-|-|-|
 |stack| T, Container | LIFO Stack (`deque`, vector, list, forward_list) | empty, size, back, push_back, pop_back |
-|queue|T, Container | FIFO Queue (`deque`, list) | empty, size, front, back, push_back, pop_front |
+|queue|T, Container | FIFO Queue (`deque`, list, forward_list) | empty, size, front, back, push_back, pop_front |
 |priority_queue|T, Container, Compare | Priority Queue a.k.a. Max-Heap or Min-Heap (`vector`, deque) | empty, size, front, push_back, pop_back, Random Access(private) |
 
 ### Associative containers
