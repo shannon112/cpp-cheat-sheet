@@ -90,7 +90,7 @@
 | library | class | data structure | features |
 |-|-|-|-|
 |stack| T, Container | LIFO Stack (`deque`, vector, list, forward_list) | empty, size, back, push_back, pop_back |
-|queue|T, Container | FIFO Queue (`deque`, list, forward_list) | empty, size, front, back, push_back, pop_front |
+|queue|T, Container | FIFO Queue (`deque`, list) | empty, size, front, back, push_back, pop_front |
 |priority_queue|T, Container, Compare | Priority Queue a.k.a. Max-Heap or Min-Heap (`vector`, deque) | empty, size, front, push_back, pop_back, Random Access(private) |
 
 ### Associative containers
@@ -438,7 +438,7 @@ int top = s.top();
   - back
   - push_back
   - pop_front
-- The standard container classes `deque and list` fulfill these requirements. 
+- The standard container classes `deque and list` fulfill these requirements. 因為需要拿到頭和尾的值在O(1)內，所以必須是雙向linked list把dummy接到頭尾才有可能
 - By default, if no container class is specified for a particular queue class instantiation, the standard container `deque` is used.
 - https://www.cplusplus.com/reference/queue/queue/
 
