@@ -59,7 +59,7 @@
 |-|-|-|-|
 |stack| LIFO stack (class template ) | Stack (`deque`, vector, list, forward_list) | empty, size, back, push_back, pop_back |
 |queue|FIFO queue (class template ) | Queue (`deque`, list) | empty, size, front, back, push_back, pop_front |
-|priority_queue|Priority queue (class template )| Priority Queue (`vector`, deque) | empty, size, front, push_back, pop_back, Random Access(iter)|
+|priority_queue|Priority queue (class template )| Priority Queue a.k.a. Max-Heap or Min-Heap (`vector`, deque) | empty, size, front, push_back, pop_back, Random Access(iter)|
 
 ### Associative containers
 | library | class | data structure | features |
@@ -463,7 +463,7 @@ q.pop();
   - front()
   - push_back()
   - pop_back()
-- The standard container classes `vector and deque` fulfill these requirements. 
+- The standard container classes `vector and deque` fulfill these requirements(especially Randomly Access). Implementation in Array, Indexing start from 1; Find Parent = floor(i/2); Find Left Child = 2i; Right Child 2i+1.
 - By default, if no container class is specified for a particular priority_queue class instantiation, the standard container `vector` is used.
 - Support of random access iterators is required to keep a heap structure internally at all times. This is done automatically by the container adaptor by automatically calling the algorithm functions `make_heap, push_heap and pop_heap` when needed. (Templete including Type, Container, Compare) 內部不是sorted的，只是維持heap特性，另外隨機存取是留給那些維持heap功能的用的，對外不開放iterate over它
   - min heap: priority_queue<int, vector<int>, greater<int> > gquiz; // Sorted heap in increasing
