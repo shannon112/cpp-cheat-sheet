@@ -20,7 +20,7 @@
 		- [1.11 Multiset `std::multiset`](#111-multiset-stdmultiset)
 		- [1.12 Map `std::map`](#112-map-stdmap)
 		- [1.13 Multimap `std::multimap`](#113-multimap-stdmultimap)
-		- [1.14 Unordered_Set `std::unordered-set`](#114-unordered-set-stdunordere_dset)
+		- [1.14 Unordered_Set `std::unordered-set`](#114-unordered-set-stdunordered_set)
 		- [1.15 Unordered_Multiset `std::unordered-multiset`](#115-unordered-multiset-stdunordered_multiset)
 		- [1.16 Unordered_Map `std::unordered-map`](#116-unordered-map-stdunordered_map)
 		- [1.17 Unordered_Multimap `std::unordered-multimap`](#117-unordered-multimap-stdunordered_multimap)
