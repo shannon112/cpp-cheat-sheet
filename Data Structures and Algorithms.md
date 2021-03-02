@@ -16,9 +16,15 @@
 		- [1.7 Stack `std::stack`](#17-stack-stdstack)
 		- [1.8 Queue `std::queue`](#18-queue-stdqueue)
 		- [1.9 Priority Queue `std::priority_queue`](#19-priority-queue-stdpriority_queue)
-		- [1.5 Map `std::map` and `std::unordered_map`](#15-map-stdmap-and-stdunordered_map)
-		- [1.6 Set `std::set`](#16-set-stdset)
-		- [1.10 Heap `std::priority_queue`](#110-heap-stdpriority_queue)
+		- [1.10 Set `std::set`](#110-set-stdset)
+		- [1.11 Multiset `std::multiset`](#111-multiset-stdmultiset)
+		- [1.12 Map `std::map`](#112-map-stdmap)
+		- [1.13 Multimap `std::multimap`](#113-multimap-stdmultimap)
+		- [1.14 Unordered Set `std::set`](#114-set-stdset)
+		- [1.15 Unordered Multiset `std::multiset`](#115-multiset-stdmultiset)
+		- [1.16 Unordered Map `std::map`](#116-map-stdmap)
+		- [1.17 Unordered Multimap `std::multimap`](#117-multimap-stdmultimap)
+		- [1.18 Heap `std::priority_queue`](#110-heap-stdpriority_queue)
 	- [2.0 Trees](#20-trees)
 		- [2.1 Binary Tree](#21-binary-tree)
 		- [2.2 Balanced Trees](#22-balanced-trees)
@@ -64,7 +70,7 @@
 ### Associative containers
 | library | class | data structure | features |
 |-|-|-|-|
-|set| Set (class template )
+|set| Set (class template ) | Binary Search Tree (nodes, vector, deque) | Associative, Ordered, Set(key=val), Unique-Keys. Allocator-aware |  
 |multiset| Multiple-key set (class template )
 |map|Map (class template )
 |multimap|Multiple-key map (class template )
@@ -497,6 +503,80 @@ unsigned int size = p.size();
 // Remove
 p.pop();
 ```
+
+-------------------------------------------------------
+
+### 1.10 Set `std::set`
+- Sets are containers that store unique elements following a specific order.
+- 每個只有一個 In a set, the value of an element also identifies it (the value is itself the key, of type T), and each value must be unique. The value of the elements in a set cannot be modified once in the container (the elements are always const), but they can be inserted or removed from the container.
+- 排序好的 Internally, the elements in a set are always sorted following a specific strict weak ordering criterion indicated by its internal comparison object (of type Compare).
+- 直接index會比較慢，但有照順序牌所以iterate會比較快 set containers are generally slower than unordered_set containers to access individual elements by their key, but they allow the direct iteration on subsets based on their order.
+- 實做 Sets are typically implemented as binary search trees.
+- Associative
+  - Elements in associative containers are referenced by their key and not by their absolute position in the container.
+- Ordered
+  - The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
+- Set
+  - The value of an element is also the key used to identify it.
+- Unique keys
+  - No two elements in the container can have equivalent keys.
+- Allocator-aware
+  - The container uses an allocator object to dynamically handle its storage needs. 
+
+**Use for**
+* Removing duplicates
+* Ordered dynamic storage
+
+**Do not use for**
+* Simple storage
+* Direct access by index
+
+**Notes**
+* Sets are often implemented with binary search trees
+
+**Time Complexity**
+
+| Operation    | Time Complexity |
+|--------------|-----------------|
+| Insert       |     `O(log(n))` |
+| Remove       |     `O(log(n))` |
+| Find         |     `O(log(n))` |
+
+**Example Code**
+```c++
+std::set<int> s;
+
+//---------------------------------
+// General Operations
+//---------------------------------
+
+// Insert
+s.insert(20);
+
+// Size
+unsigned int size = s.size();
+
+// Iterate
+for(std::set<int>::iterator it = s.begin(); it != s.end(); it++) {
+    std::cout << *it << std::endl;
+}
+
+// Remove
+s.erase(20);
+
+// Clear
+s.clear();
+
+//---------------------------------
+// Container-Specific Operations
+//---------------------------------
+
+// Find if an element exists
+bool exists = (s.find(20) != s.end());
+
+// Count the number of elements with a certain value
+unsigned int count = s.count(20);
+```
 -------------------------------------------------------
 
 ### 1.5 Map `std::map` and `std::unordered_map`
@@ -574,62 +654,6 @@ bool exists = (m.find("key") != m.end());
 
 // Count the number of elements with a certain key
 unsigned int count = m.count("key");
-```
--------------------------------------------------------
-### 1.6 Set `std::set`
-**Use for**
-* Removing duplicates
-* Ordered dynamic storage
-
-**Do not use for**
-* Simple storage
-* Direct access by index
-
-**Notes**
-* Sets are often implemented with binary search trees
-
-**Time Complexity**
-
-| Operation    | Time Complexity |
-|--------------|-----------------|
-| Insert       |     `O(log(n))` |
-| Remove       |     `O(log(n))` |
-| Find         |     `O(log(n))` |
-
-**Example Code**
-```c++
-std::set<int> s;
-
-//---------------------------------
-// General Operations
-//---------------------------------
-
-// Insert
-s.insert(20);
-
-// Size
-unsigned int size = s.size();
-
-// Iterate
-for(std::set<int>::iterator it = s.begin(); it != s.end(); it++) {
-    std::cout << *it << std::endl;
-}
-
-// Remove
-s.erase(20);
-
-// Clear
-s.clear();
-
-//---------------------------------
-// Container-Specific Operations
-//---------------------------------
-
-// Find if an element exists
-bool exists = (s.find(20) != s.end());
-
-// Count the number of elements with a certain value
-unsigned int count = s.count(20);
 ```
 -------------------------------------------------------
 
