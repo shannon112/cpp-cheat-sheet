@@ -47,9 +47,26 @@
 
 ## 1.0 Data Structures
 ### 1.1 Overview
-- Container Adaptors. Container adaptors are not full container classes, but classes that provide a specific interface relying on an object of one of the container classes (such as deque or list) to handle the elements. The underlying container is encapsulated in such a way that its elements are accessed by the members of the container adaptor independently of the underlying container class used.
-- Associative. Elements in associative containers are referenced by their key and not by their absolute position in the container.
-- Ordered. The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
+
+### Properties
+| | |
+|-|-|
+|Container Adaptors| Container adaptors are not full container classes, but classes that provide a specific interface relying on an object of one of the container classes (such as deque or list) to handle the elements. The underlying container is encapsulated in such a way that its elements are accessed by the members of the container adaptor independently of the underlying container class used.
+|Sequence|Elements in sequence containers are ordered in a strict linear sequence. Individual elements are accessed by their position in this sequence.
+|Contiguous storage |The elements are stored in contiguous memory locations, allowing **constant time random access to elements**. Pointers to an element can be offset to access other elements.
+|Linked list|Each element keeps information on how to locate the next element, allowing constant time insert and erase operations after a specific element (even of entire ranges), but no direct random access.
+|Doubly-linked list| Each element keeps information on how to locate the next and the previous elements, allowing constant time insert and erase operations before or after a specific element (even of entire ranges), but no direct random access.
+|Fixed-size aggregate|The container uses implicit constructors and destructors to **allocate the required space statically**. Its size is compile-time constant. **No memory or time overhead**. 
+|Dynamic array(deque) |Generally implemented as a dynamic array, it allows direct access to any element in the sequence and provides relatively fast **addition/removal** of elements at the **beginning or the end of** the sequence.
+|Dynamic array(vector) |Allows **random access** to any element in the sequence, even through pointer arithmetics, and provides relatively fast **addition/removal** of elements **at the end of** the sequence.
+|Associative|Elements in associative containers are referenced by their key and not by their absolute position in the container.
+|Ordered|The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
+|Unordered|Unordered containers organize their elements using hash tables that allow for fast access to elements by their key.
+|Set|The value of an element is also the key used to identify it.
+|Map|Each element associates a key to a mapped value: Keys are meant to identify the elements whose main content is the mapped value.
+|Multiple equivalent keys|Multiple elements in the container can have equivalent keys.
+|Unique keys|No two elements in the container can have equivalent keys.
+|Allocator-aware|The container uses an allocator object to dynamically handle its storage needs.
 
 ### Sequence containers
 | library | class | data structure | features |
@@ -79,9 +96,9 @@
 | library | templete params | data structure | features |
 |-|-|-|-|
 | unordered_set| Key, Hash, Pred, Alloc | Hash Table | Associative, Unordered, Set(key=val), Unique-Keys. Allocator-aware, O(1) Random Access([index]) |  
-|unordered_multiset| Key, Hash, Pred, Alloc | Hash Table | 
-|unordered_map | Key, T, Hash, Pred, Alloc | Hash Table |
-|unordered_multimap | Key, T, Hash, Pred, Alloc | Hash Table |
+|unordered_multiset| Key, Hash, Pred, Alloc | Hash Table | Associative, Unordered, Set(key=val), Multiple-equivalent-keys. Allocator-aware, O(1) Random Access([index]) |
+|unordered_map | Key, T, Hash, Pred, Alloc | Hash Table | Associative, Unordered, Map(key&val), Unique-Keys. Allocator-aware, O(1) Random Access([index]) |  
+|unordered_multimap | Key, T, Hash, Pred, Alloc | Hash Table | Associative, Unordered, Map(key&val), Multiple-equivalent-keys. Allocator-aware, O(1) Random Access([index]) |
 
 ![Legend](General/Legend.png)
 
@@ -101,12 +118,6 @@
 - 這邊只是多包了一層 This class merely adds a layer of member and global functions to it, so that arrays can be used as standard containers.
 - 一次要到固定的記憶體空間不能改變大小 Unlike the other standard containers, arrays have a fixed size and do not manage the allocation of its elements through an allocator, they are an aggregate type encapsulating a fixed-size array of elements. Therefore, they cannot be expanded or contracted dynamically (see vector for a similar container that can be expanded).
 - https://www.cplusplus.com/reference/array/array/
-- Sequence 
-  - Elements in sequence containers are **ordered in a strict linear sequence**. Individual elements are accessed by their position in this sequence.
-- Contiguous storage 
-  - The elements are stored in contiguous memory locations, allowing **constant time random access to elements**. Pointers to an element can be offset to access other elements.
-- Fixed-size aggregate
-  - The container uses implicit constructors and destructors to **allocate the required space statically**. Its size is compile-time constant. **No memory or time overhead**. 
 
 -------------------------------------------------------
 ### 1.3 Vector `std::vector`
@@ -121,12 +132,6 @@
   - For operations that involve inserting or removing elements at positions other than the end, they perform worse than the others
   - have less consistent iterators and references than lists and forward_lists.
 - https://www.cplusplus.com/reference/vector/vector/
-- Sequence
-  - Elements in sequence containers are **ordered in a strict linear sequence**. Individual elements are accessed by their position in this sequence.
-- Dynamic array
-  - Allows **random access** to any element in the sequence, even through pointer arithmetics, and provides relatively fast **addition/removal** of elements **at the end of** the sequence.
-- Allocator-aware
-  - The container uses an allocator object to **dynamically handle its storage needs**. 
 
 **Use for**
 * Simple storage
@@ -199,12 +204,6 @@ v.clear();
   - While vectors use a single array that needs to be occasionally reallocated for growth, the elements of a deque can be scattered in different chunks of storage, with the container keeping the necessary information internally to provide direct access to any of its elements in constant time and with a uniform sequential interface (through iterators). 
   - Therefore, deques are a little more complex internally than vectors, but this allows them to grow more efficiently under certain circumstances, especially with very long sequences, where reallocations become more expensive.
 - https://www.cplusplus.com/reference/deque/deque/
-- Sequence
-  - Elements in sequence containers are **ordered in a strict linear sequence**. Individual elements are accessed by their position in this sequence.
-- Dynamic array
-  - Generally implemented as a dynamic array, it allows direct access to any element in the sequence and provides relatively fast **addition/removal** of elements at the **beginning or the end of** the sequence.
-- Allocator-aware
-  - The container uses an allocator object to **dynamically handle its storage needs**. 
 
 **Use for**
 * Similar purpose of `std::vector`
@@ -270,24 +269,12 @@ d.clear();
   - This would consume some extra storage and make insertion and removal operations slightly less efficient. 
   - To obtain the size of a forward_list object, you can use the distance algorithm with its begin and end, which is an operation that takes linear time.
 - https://www.cplusplus.com/reference/forward_list/forward_list/
-- Sequence
-  - Elements in sequence containers are ordered in a strict linear sequence. Individual elements are accessed by their position in this sequence.
-- Linked list
-  - Each element keeps information on how to locate the next element, allowing constant time insert and erase operations after a specific element (even of entire ranges), but no direct random access.
-- Allocator-aware
-  - The container uses an allocator object to dynamically handle its storage needs. 
 
 -------------------------------------------------------
 ### 1.6 List `std::list`
 - Lists are sequence containers that allow constant time insert and erase operations anywhere within the sequence, and iteration in both directions.
 - List containers are implemented as doubly-linked lists; Doubly linked lists can store each of the elements they contain in different and unrelated storage locations. The ordering is kept internally by the association to each element of a link to the element preceding it and a link to the element following it.
 - https://www.cplusplus.com/reference/list/list/
-- Sequence
-  - Elements in sequence containers are ordered in a strict linear sequence. Individual elements are accessed by their position in this sequence.
-- Doubly-linked list
-  - Each element keeps information on how to locate the next and the previous elements, allowing constant time insert and erase operations before or after a specific element (even of entire ranges), but no direct random access.
-Allocator-aware
-    The container uses an allocator object to dynamically handle its storage needs.
 
 **Use for**
 * Insertion into the middle/beginning of the list
@@ -512,16 +499,6 @@ p.pop();
 - 排序好的 Internally, the elements in a set are always sorted following a specific strict weak ordering criterion indicated by its internal comparison object (of type Compare).
 - 直接index會比較慢，但有照順序牌所以iterate會比較快 set containers are generally slower than unordered_set containers to access individual elements by their key, but they allow the direct iteration on subsets based on their order.
 - 實做 Sets are typically implemented as binary search trees.
-- Associative
-  - Elements in associative containers are referenced by their key and not by their absolute position in the container.
-- Ordered
-  - The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
-- Set
-  - The value of an element is also the key used to identify it.
-- Unique keys
-  - No two elements in the container can have equivalent keys.
-- Allocator-aware
-  - The container uses an allocator object to dynamically handle its storage needs. 
 
 **Use for**
 * Removing duplicates
@@ -585,16 +562,6 @@ unsigned int count = s.count(20);
 - 排序好的 Internally, the elements in a multiset are always sorted following a specific strict weak ordering criterion indicated by its internal comparison object (of type Compare).
 - 直接index會比較慢，但有照順序牌所以iterate會比較快 multiset containers are generally slower than unordered_multiset containers to access individual elements by their key, but they allow the direct iteration on subsets based on their order.
 - 實做 Multisets are typically implemented as binary search trees.
-- Associative
-  - Elements in associative containers are referenced by their key and not by their absolute position in the container.
-- Ordered
-  - The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
-- Set
-  - The value of an element is also the key used to identify it.
-- Multiple equivalent keys
-  - Multiple elements in the container can have equivalent keys.
-- Allocator-aware
-  - The container uses an allocator object to dynamically handle its storage needs.
 
 -------------------------------------------------------
 
@@ -605,16 +572,6 @@ unsigned int count = s.count(20);
 - 直接index會比較慢，但有照順序牌所以iterate會比較快. map containers are generally slower than unordered_map containers to access individual elements by their key, but they allow the direct iteration on subsets based on their order.
 - 隨機存取 The mapped values in a map can be accessed directly by their corresponding key using the `bracket operator ((operator[]).`
 - 實做 Maps are typically implemented as binary search trees.
-- Associative
-  - Elements in associative containers are referenced by their key and not by their absolute position in the container.
-- Ordered
-  - The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
-- Map
-  - Each element associates a key to a mapped value: Keys are meant to identify the elements whose main content is the mapped value.
-- Unique keys
-  - No two elements in the container can have equivalent keys.
-- Allocator-aware
-  - The container uses an allocator object to dynamically handle its storage needs.
 
 **Use for**
 * Key-value pairs
@@ -699,16 +656,6 @@ unsigned int count = m.count("key");
 - Internally, the elements in a multimap are always sorted by its key following a specific strict weak ordering criterion indicated by its internal comparison object (of type Compare).
 - multimap containers are generally slower than unordered_multimap containers to access individual elements by their key, but they allow the direct iteration on subsets based on their order.
 - Multimaps are typically implemented as binary search trees.
-- Associative
-  - Elements in associative containers are referenced by their key and not by their absolute position in the container.
-- Ordered
-  - The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
-- Map
-  - Each element associates a key to a mapped value: Keys are meant to identify the elements whose main content is the mapped value.
-- Multiple equivalent keys
-  - Multiple elements in the container can have equivalent keys.
-- Allocator-aware
-  - The container uses an allocator object to dynamically handle its storage needs.
 
 -------------------------------------------------------
 ### 1.14 Unordered Set `std::unordered_set`
@@ -717,18 +664,14 @@ unsigned int count = m.count("key");
 - 無序 Internally, the elements in the unordered_set are not sorted in any particular order, but organized into buckets depending on their hash values to allow for fast access to individual elements directly by their values (with a constant average time complexity on average).
 - 快速存取，遊走慢 unordered_set containers are faster than set containers to access individual elements by their key, although they are generally less efficient for range iteration through a subset of their elements.
 - Iterators in the container are at least forward iterators.
-- Associative
-  - Elements in associative containers are referenced by their key and not by their absolute position in the container.
-- Unordered
-  - Unordered containers organize their elements using hash tables that allow for fast access to elements by their key.
-- Set
-  - The value of an element is also the key used to identify it.
-- Unique keys
-  -  No two elements in the container can have equivalent keys.
-- Allocator-aware
-  - The container uses an allocator object to dynamically handle its storage needs.
 
 ### 1.15 Unordered Multiset `std::unordered_multiset`
+- Unordered multisets are containers that store elements in no particular order, allowing fast retrieval of individual elements based on their value, much like unordered_set containers, but allowing different elements to have equivalent values.
+- In an unordered_multiset, the value of an element is at the same time its key, used to identify it. Keys are immutable, therefore, the elements in an unordered_multiset cannot be modified once in the container - they can be inserted and removed, though.
+- Internally, the elements in the unordered_multiset are not sorted in any particular, but organized into buckets depending on their hash values to allow for fast access to individual elements directly by their values (with a constant average time complexity on average).
+- 相同的會存在一起 Elements with equivalent values are grouped together in the same bucket and in such a way that an iterator (see equal_range) can iterate through all of them.
+- Iterators in the container are at least forward iterators.
+- Notice that this container is not defined in its own header, but shares header <unordered_set> with unordered_set.
 
 ### 1.16 Unordered Map `std::unordered_map`
 
