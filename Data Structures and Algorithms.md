@@ -71,7 +71,7 @@
 | library | class | data structure | features |
 |-|-|-|-|
 |set| Set (class template ) | Binary Search Tree (nodes, vector, deque) | Associative, Ordered, Set(key=val), Unique-Keys. Allocator-aware |  
-|multiset| Multiple-key set (class template )
+|multiset| Multiple-key set (class template ) | Binary Search Tree (nodes, vector, deque) | Associative, Ordered, Set(key=val), Multiple equivalent keys, Allocator-aware| 
 |map|Map (class template )
 |multimap|Multiple-key map (class template )
 
@@ -508,7 +508,7 @@ p.pop();
 
 ### 1.10 Set `std::set`
 - Sets are containers that store unique elements following a specific order.
-- 每個只有一個 In a set, the value of an element also identifies it (the value is itself the key, of type T), and each value must be unique. The value of the elements in a set cannot be modified once in the container (the elements are always const), but they can be inserted or removed from the container.
+- key=val且不重複 In a set, the value of an element also identifies it (the value is itself the key, of type T), and each value must be unique. The value of the elements in a set cannot be modified once in the container (the elements are always const), but they can be inserted or removed from the container.
 - 排序好的 Internally, the elements in a set are always sorted following a specific strict weak ordering criterion indicated by its internal comparison object (of type Compare).
 - 直接index會比較慢，但有照順序牌所以iterate會比較快 set containers are generally slower than unordered_set containers to access individual elements by their key, but they allow the direct iteration on subsets based on their order.
 - 實做 Sets are typically implemented as binary search trees.
@@ -578,6 +578,22 @@ bool exists = (s.find(20) != s.end());
 unsigned int count = s.count(20);
 ```
 -------------------------------------------------------
+### 1.11 Multiset `std::multiset`
+- Multisets are containers that store elements following a specific order, and where multiple elements can have equivalent values.
+- key=val且可重複 In a multiset, the value of an element also identifies it (the value is itself the key, of type T). The value of the elements in a multiset cannot be modified once in the container (the elements are always const), but they can be inserted or removed from the container.
+- 排序好的 Internally, the elements in a multiset are always sorted following a specific strict weak ordering criterion indicated by its internal comparison object (of type Compare).
+- 直接index會比較慢，但有照順序牌所以iterate會比較快 multiset containers are generally slower than unordered_multiset containers to access individual elements by their key, but they allow the direct iteration on subsets based on their order.
+- 實做 Multisets are typically implemented as binary search trees.
+- Associative
+  - Elements in associative containers are referenced by their key and not by their absolute position in the container.
+- Ordered
+  - The elements in the container follow a strict order at all times. All inserted elements are given a position in this order.
+- Set
+  - The value of an element is also the key used to identify it.
+- Multiple equivalent keys
+  - Multiple elements in the container can have equivalent keys.
+- Allocator-aware
+  - The container uses an allocator object to dynamically handle its storage needs.
 
 ### 1.5 Map `std::map` and `std::unordered_map`
 **Use for**
