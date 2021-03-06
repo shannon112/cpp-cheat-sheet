@@ -989,11 +989,18 @@ unsigned int count = m.count("key");
 
 -------------------------------------------------------
 ### 4.9 Divide And Conquer
-
+- independent subproblems
+- divide the problem, solve the subproblems recursively, and then combine solutions to solve the original problem
+- complexity: T(n)=theta(1), if n<=c ; T(n)=aT(n/b)+D(n)+C(n), otherwise. 可以畫recursion tree來解開T再加上D和C即可
+- a: # of subproblems. n/b: size of subproblems. D(n): time to divide. C(n): time to combine.
 -------------------------------------------------------
 ### 4.10 Dynamic Programming
-
+- overlapping subproblems (need to check the solution is best or not)
+- solve the subproblems recursively (time consuming) (top down)
+- solve each subproblem just once iteratively (with memoization) (bottom up) 
+- optimal substructure (剝洋蔥式的解法，所求必來自前一項，最終將追回base case)
 -------------------------------------------------------
 ### 4.11 Greedy Algorithm
-
+- greedy-choice property (global optimal solution can be arrived at making a local optimal choice)
+- optimal substructure (剝洋蔥式的解法，所求必來自前一項，最終將追回base case)
 -------------------------------------------------------
