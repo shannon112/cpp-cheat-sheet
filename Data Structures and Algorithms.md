@@ -28,9 +28,6 @@
 		- [2.0 Heap `std::priority_queue`](#20-heap-stdpriority_queue)
 		- [2.1 Binary Tree `std::map` `std::set`](#21-binary-tree-stdmap-stdset)
 		- [2.2 Balanced Trees](#22-balanced-trees)
-		- [2.3 Binary Search](#23-binary-search)
-		- [2.4 Depth-First Search](#24-depth-first-search)
-		- [2.5 Breadth-First Search](#25-breadth-first-search)
 	- [3.0 NP Complete Problems](#30-np-complete-problems)
 		- [3.1 NP Complete](#31-np-complete)
 		- [3.2 Traveling Salesman Problem](#32-traveling-salesman-problem)
@@ -41,6 +38,12 @@
 		- [4.3 Bubble Sort](#43-bubble-sort)
 		- [4.4 Merge Sort](#44-merge-sort)
 		- [4.5 Quicksort](#45-quicksort)
+		- [4.6 Binary Search](#46-binary-search)
+		- [4.7 Depth-First Search](#47-depth-first-search)
+		- [4.8 Breadth-First Search](#48-breadth-first-search)
+		- [4.9 Divide And Conquer](#49-divide-and-conquer)
+		- [4.10 Dynamic Programming](#410-dynamic-programming)
+		- [4.11 Greedy Algorithm](#411-greedy-algorithm)
 
 <!-- /TOC -->
 
@@ -757,72 +760,6 @@ unsigned int count = m.count("key");
     * Red-Black Trees
 
 -------------------------------------------------------
-### 2.3 Binary Search
-**Idea:**
-1. If current element, return
-2. If less than current element, look left
-3. If more than current element, look right
-4. Repeat
-
-**Data Structures:**
-* Tree
-* Sorted array
-
-**Space:**
-* `O(1)`
-
-**Best Case:**
-* `O(1)`
-
-**Worst Case:**
-* `O(log n)`
-
-**Average:**
-* `O(log n)`
-
-**Visualization:**
-
-![BinarySearch](Searching/Animations/Binary%20Search.gif "Binary Search")
--------------------------------------------------------
-### 2.4 Depth-First Search
-**Idea:**
-1. Start at root node
-2. Recursively search all adjacent nodes and mark them as searched
-3. Repeat
-
-**Data Structures:**
-* Tree
-* Graph
-
-**Space:**
-* `O(V)`, `V = number of verticies`
-
-**Performance:**
-* `O(E)`, `E = number of edges`
-
-**Visualization:**
-
-![DepthFirstSearch](Searching/Animations/Depth-First%20Search.gif "Depth-First Search")
--------------------------------------------------------
-### 2.5 Breadth-First Search
-**Idea:**
-1. Start at root node
-2. Search neighboring nodes first before moving on to next level
-
-**Data Structures:**
-* Tree
-* Graph
-
-**Space:**
-* `O(V)`, `V = number of verticies`
-
-**Performance:**
-* `O(E)`, `E = number of edges`
-
-**Visualization:**
-
-![DepthFirstSearch](Searching/Animations/Breadth-First%20Search.gif "Breadth-First Search")
--------------------------------------------------------
 ## 3.0 NP Complete Problems
 ### 3.1 NP Complete
 * **NP Complete** means that a problem is unable to be solved in **polynomial time**
@@ -980,3 +917,83 @@ unsigned int count = m.count("key");
 #### Visualization
 
 ![QuickSort](Sorting/Animations/Quicksort.gif)
+
+
+-------------------------------------------------------
+### 4.6 Binary Search
+**Idea:**
+1. If current element, return
+2. If less than current element, look left
+3. If more than current element, look right
+4. Repeat
+
+**Data Structures:**
+* Tree
+* Sorted array
+
+**Space:**
+* `O(1)`
+
+**Best Case:**
+* `O(1)`
+
+**Worst Case:**
+* `O(log n)`
+
+**Average:**
+* `O(log n)`
+
+**Visualization:**
+
+![BinarySearch](Searching/Animations/Binary%20Search.gif "Binary Search")
+-------------------------------------------------------
+### 4.7 Depth-First Search
+**Idea:**
+1. Start at root node
+2. Recursively search all adjacent nodes and mark them as searched
+3. Repeat
+
+**Data Structures:**
+* Tree
+* Graph
+
+**Space:**
+* `O(V)`, `V = number of verticies`
+
+**Performance:**
+* `O(E)`, `E = number of edges`
+
+**Visualization:**
+
+![DepthFirstSearch](Searching/Animations/Depth-First%20Search.gif "Depth-First Search")
+
+-------------------------------------------------------
+### 4.8 Breadth-First Search
+**Idea:**
+1. Start at root node
+2. Search neighboring nodes first before moving on to next level
+
+**Data Structures:**
+* Tree
+* Graph
+
+**Space:**
+* `O(V)`, `V = number of verticies`
+
+**Performance:**
+* `O(E)`, `E = number of edges`
+
+**Visualization:**
+
+![BreadthFirstSearch](Searching/Animations/Breadth-First%20Search.gif "Breadth-First Search")
+
+-------------------------------------------------------
+### 4.9 Divide And Conquer
+
+-------------------------------------------------------
+### 4.10 Dynamic Programming
+
+-------------------------------------------------------
+### 4.11 Greedy Algorithm
+
+-------------------------------------------------------
