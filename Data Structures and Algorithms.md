@@ -768,17 +768,33 @@ unsigned int count = m.count("key");
 
 -------------------------------------------------------
 ## 3.0 NP Complete Problems
-### 3.1 NP Complete
-* **NP Complete** means that a problem is unable to be solved in **polynomial time**
-* NP Complete problems can be *verified* in polynomial time, but not *solved*
+### 3.1 Complexity Classes
+- The class P:
+  - class of problems that can be solved in polynomial time
+  - closed under addition, multiplication, composition, complement(logical not) 仍會可解
+- The class NP:
+  - class of problems that can be verified in polynomial time 
+  - 目前已知是P的話一定是NP，但NP會不會一定是P就不知道了(見文氏圖)
+- The class NP-complete:
+  - problems can be *verified* in polynomial time, but not *solved*. 本身是NP
+  - it can be used to simulate any other problem with similar solvability. 可以分解轉換成不同問題in polynomial time，而且那些問題也是NP
+- The class NP-hard:
+  - it can be used to simulate any other problem with similar solvability. 可以分解轉換成不同問題in polynomial time, 而且那些問題也是NP
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/P_np_np-complete_np-hard.svg/1280px-P_np_np-complete_np-hard.svg.png" width=500>
 
 -------------------------------------------------------
 ### 3.2 Traveling Salesman Problem
 
 -------------------------------------------------------
-### 3.3 0-1 Knapsack Problem
-
-[Implementation](NP-complete/knapsack/)
+### 3.3 Knapsack Problem
+- 小偷要偷物品，但包包容量有限，怎樣才能偷到最多價值，給物品的大小list和物品的價值list
+- Fractional Knapsack
+  - greedy algorithm 解，只要把價值array和物品大小array相除O(n)，然後sort這個cp值array O(nlgn)，然後從最高的開始取配合物品大小array O(n)，總的會花O(nlgn)
+- 0-1 Knapsack 
+  - NP-complete
+  - O(nW) pseudo polynomial time
+  - [Implementation](NP-complete/knapsack/)
 
 -------------------------------------------------------
 
