@@ -777,7 +777,7 @@ unsigned int count = m.count("key");
 
 ## 4.0 Algorithms
 ###  4.1 Insertion Sort
-#### Idea
+#### Idea 撲克牌式整理 把牌插到適合的位置
 1. Iterate over all elements
 2. For each element:
     * Check if element is larger than largest value in sorted array
@@ -821,7 +821,7 @@ InsertionSort(A){
 
 -------------------------------------------------------
 ### 4.2 Selection Sort
-#### Idea
+#### Idea 按部就班 把最小的一直往左送
 1. Iterate over all elements
 2. For each element:
     * If smallest element of unsorted sublist, swap with left-most unsorted element
@@ -846,6 +846,17 @@ InsertionSort(A){
 ![SelectionSort](Sorting/Animations/Selection%20Sort.gif "Selection Sort")
 
 ![SelectionSort](Sorting/Animations/Selection%20Sort%202.gif "Selection Sort 2")
+
+```c++
+SelectionSort(A){
+	for(i=0 to A.length-2){
+		now = A[i], min=now;
+		for(i=j+1 to A.length-1)
+			if (A[j]<min) min = A[j];
+		swap(now, min)
+	}
+}
+```
 -------------------------------------------------------
 ### 4.3 Bubble Sort
 #### Idea
