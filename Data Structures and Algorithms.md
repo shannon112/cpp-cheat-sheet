@@ -803,6 +803,22 @@ unsigned int count = m.count("key");
 #### Visualization
 
 ![InsertionSort](Sorting/Animations/Insertion%20Sort.gif "Insertion Sort")
+
+### Pseudo code
+```c++
+InsertionSort(A){
+	for(j=1 to A.length-1){
+		key = A[j];
+		i = j-1;
+		while (i>=0 && A[i]>key){
+			A[i+1] = A[i];
+			i--;
+		}
+		A[i+1] = key;
+	}
+}
+```
+
 -------------------------------------------------------
 ### 4.2 Selection Sort
 #### Idea
