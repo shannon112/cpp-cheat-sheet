@@ -859,7 +859,7 @@ SelectionSort(A){
 ```
 -------------------------------------------------------
 ### 4.3 Bubble Sort
-#### Idea
+#### Idea 如果順序不對，相鄰的兩個就交換，一直重複從頭刷到尾直到不用交換
 1. Iterate over all elements
 2. For each element:
     * Swap with next element if out of order
@@ -882,6 +882,18 @@ SelectionSort(A){
 #### Visualization
 
 ![BubbleSort](Sorting/Animations/Bubble%20Sort.gif "Bubble Sort")
+```c++
+BubbleSort(A){
+	sorted = false;
+	while (!sorted){ //也可以用for 1~N 次
+		sorted = true;
+		for(i=0 to A.length-2){
+			if (A[i+1]<A[i]) swap(A[i+1], A[i]);
+			sorted = false;
+		}
+	}
+}
+```
 -------------------------------------------------------
 ### 4.4 Merge Sort
 #### Idea
