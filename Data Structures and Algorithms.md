@@ -39,6 +39,7 @@
 		- [4.4 Merge Sort](#44-merge-sort)
 		- [4.5 Quicksort](#45-quicksort)
 		- [4.6 Binary Search](#46-binary-search)
+		- [4.A Non-Comparison-Based Sorter](#4A-non-comparison-based-sorter)
 		- [4.7 Depth-First Search](#47-depth-first-search)
 		- [4.8 Breadth-First Search](#48-breadth-first-search)
 		- [4.9 Divide And Conquer](#49-divide-and-conquer)
@@ -751,6 +752,12 @@ unsigned int count = m.count("key");
 **Binary Search Tree**
 
 ![BinarySearchTree](General/BinarySearchTree.png)
+
+- Pre-Order traversal
+- In-Order traversal
+- Post-Order traversal
+- Level-Order traversal
+
 -------------------------------------------------------
 ### 2.2 Balanced Trees
 * Balanced trees are a special type of tree which maintains its balance to ensure `O(log(n))` operations
@@ -1039,8 +1046,15 @@ BinarySearch (A, start, end, key){
 }
 ```
 -------------------------------------------------------
+### 4.A Non-Comparison-Based Sorter
+- counting sort
+- radix sort
+- bucket sort
+
+-------------------------------------------------------
+
 ### 4.7 Depth-First Search
-**Idea:**
+**Idea:** 用遞迴去從根追到葉子
 1. Start at root node
 2. Recursively search all adjacent nodes and mark them as searched
 3. Repeat
@@ -1058,10 +1072,37 @@ BinarySearch (A, start, end, key){
 **Visualization:**
 
 ![DepthFirstSearch](Searching/Animations/Depth-First%20Search.gif "Depth-First Search")
+```c++
+DFS(G){
+	for (v in G.V){
+		v.color = WHITE;
+		v.prev = NULL;
+	}
+	time = 0;
+	for (u in G.V){
+		if (u.color==WHITE)
+			DFS-Visit(G,u);
+	}
+}
+DFS-Visit(G,u){
+	time = time+1;
+	u.d = time;
+	u.color = GRAY;
+	for (v in G.adj[u]){
+		if (v.color == WHITE) {
+			v.prev = u;
+			DFS-VISIT(G,v);
+		}
+	}
+	u.color = BLACK;
+	time = time+1;
+	u.f = time;
+}
+```
 
 -------------------------------------------------------
 ### 4.8 Breadth-First Search
-**Idea:**
+**Idea:** 用queue去慢慢擴展出去
 1. Start at root node
 2. Search neighboring nodes first before moving on to next level
 
@@ -1070,14 +1111,37 @@ BinarySearch (A, start, end, key){
 * Graph
 
 **Space:**
-* `O(V)`, `V = number of verticies`
+* `O(V+E)`, `V = number of verticies`
 
 **Performance:**
-* `O(E)`, `E = number of edges`
+* `O(V+E)`, `E = number of edges`
 
 **Visualization:**
 
 ![BreadthFirstSearch](Searching/Animations/Breadth-First%20Search.gif "Breadth-First Search")
+```c++
+// white undiscovered, gray discovered, black explored
+BFS(G,s){
+	for (v in G.V-s){
+		v.color = WHITE;
+		v.d = MAX;
+		v.prev = NULL; //predecessor
+	}
+	s.color = GRAY; s.d = 0; s.prev = NULL;
+	queue Q;
+	Q.push_back(s);
+	while(!Q.empty()){
+		u = Q.pop_front();
+		for (v in G.Adj[u]){
+			if (v.color==WHITE){
+				v.color = GRAY; v.d = u.d+1; v.prev = u;
+				Q.push_back(v);
+			}
+		}
+		u.color = BLACK;
+	}
+}
+```
 
 -------------------------------------------------------
 ### 4.9 Divide And Conquer
