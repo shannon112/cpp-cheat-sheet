@@ -896,7 +896,7 @@ BubbleSort(A){
 ```
 -------------------------------------------------------
 ### 4.4 Merge Sort
-#### Idea
+#### Idea (Divide and Conquer)
 1. Divide list into smallest unit (1 element)
 2. Compare each element with the adjacent list
 3. Merge the two adjacent lists
@@ -948,7 +948,7 @@ Merge(A, p, q, r){
 ```
 -------------------------------------------------------
 ### 4.5 Quicksort
-#### Idea
+#### Idea 
 1. Choose a **pivot** from the array
 2. Partition: Reorder the array so that all elements with values *less* than the pivot come before the pivot, and all values *greater* than the pivot come after
 3. Recursively apply the above steps to the sub-arrays
@@ -978,7 +978,9 @@ Merge(A, p, q, r){
 #### Visualization
 
 ![QuickSort](Sorting/Animations/Quicksort.gif)
-
+```
+QuickSort
+```
 
 -------------------------------------------------------
 ### 4.6 Binary Search
@@ -1007,6 +1009,15 @@ Merge(A, p, q, r){
 **Visualization:**
 
 ![BinarySearch](Searching/Animations/Binary%20Search.gif "Binary Search")
+```
+BinarySearch (A, start, end, key){
+	if (start>end) return false;
+	now = (start+end)/2
+	if (A[now]==key) return now;
+	else if (A[now]>key) return BinarySearch(A, start, now-1, key);
+	else return BinarySearch(A, now+1, end, key);
+}
+```
 -------------------------------------------------------
 ### 4.7 Depth-First Search
 **Idea:**
