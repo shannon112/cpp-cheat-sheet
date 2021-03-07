@@ -924,6 +924,28 @@ BubbleSort(A){
 ![MergeSort](Sorting/Animations/Merge%20Sort.gif "Merge Sort")
 
 ![MergeSort](Sorting/Animations/Merge%20Sort%202.gif "Merge Sort 2")
+
+```c++
+MergeSort(A, p, r){
+	if (p<r){
+		q = (p+r)/2;
+		MergeSort(A, p, q);
+		MergeSort(A, q+1, r);
+		Merge(A, p, q, r);	
+	}
+}
+Merge(A, p, q, r){
+	n1 = q-p+1, n2 = r-q;
+	create array L[n1+1], R[n2+1]
+	for (i=0 to n1-1) A[i+p] = L[i];
+	for (j=0 to n2-1) A[j+q+1] = R[j];
+	i = 0, j=0, L[n1]=MAX, L[n2]=MAX;
+	for (k=p to r){
+		if (L[i]<=R[j]) A[k] = L[i++];
+		else A[k] = R[j++];
+	}
+}
+```
 -------------------------------------------------------
 ### 4.5 Quicksort
 #### Idea
