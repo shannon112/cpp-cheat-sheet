@@ -896,13 +896,14 @@ BubbleSort(A){
 ```
 -------------------------------------------------------
 ### 4.4 Merge Sort
-#### Idea (Divide and Conquer)
+#### Idea (Divide and Conquer, 在Merge的時候sort花O(n))
 1. Divide list into smallest unit (1 element)
 2. Compare each element with the adjacent list
 3. Merge the two adjacent lists
 4. Repeat
 
 #### Details
+* **Complexity:** T(n) = 2T(n/2) + O(n)
 * **Data structure:** Array
 * **Space:** `O(n) auxiliary`
 * **Best Case:** `O(nlog(n))`
@@ -948,16 +949,17 @@ Merge(A, p, q, r){
 ```
 -------------------------------------------------------
 ### 4.5 Quicksort
-#### Idea 
+#### Idea (Divide and Conquer, 在Divide的時候sort花O(n))
 1. Choose a **pivot** from the array
 2. Partition: Reorder the array so that all elements with values *less* than the pivot come before the pivot, and all values *greater* than the pivot come after
 3. Recursively apply the above steps to the sub-arrays
 
 #### Details
+* **Complexity:** T(n) = 2T(n/2) + O(n)
 * **Data structure:** Array
-* **Space:** `O(n)`
-* **Best Case:** `O(nlog(n))`
-* **Worst Case:** All elements equal, `O(n^2)`
+* **Space:** `O(1)`
+* **Best Case:** `O(nlog(n))`, sorted 每次pivot都剛好對半分，還是得把全部走過一次 Divide = O(n)
+* **Worst Case:** All elements equal, `O(n^2)`, 每次都分成T(1)和T(n-1)，這樣樹高就會是n不是lgn
 * **Average:** `O(nlog(n))`
 
 #### Advantages
@@ -978,8 +980,26 @@ Merge(A, p, q, r){
 #### Visualization
 
 ![QuickSort](Sorting/Animations/Quicksort.gif)
-```
-QuickSort
+```c++
+QuickSort(A, p, r){
+	if (p<r) {
+		q = Partition(A, p, r);
+		QuickSort(A, p, q);
+		QuickSort(A, q+1, r);
+	}
+}
+Partition(A, p, r){
+	x = A[p]; //pivot
+	i = p-1;
+	j = r+1;
+	while(true){
+		while (A[--j]<=x) break;
+		while (A[++i]>=x) break;
+		if(i<j){
+			swap(A[i], A[j]);
+		}else return j; //切分線發生在ji的中間，因此左邊那塊到j，右邊那塊從j+1開始
+	}
+}
 ```
 
 -------------------------------------------------------
@@ -1009,7 +1029,7 @@ QuickSort
 **Visualization:**
 
 ![BinarySearch](Searching/Animations/Binary%20Search.gif "Binary Search")
-```
+```c++
 BinarySearch (A, start, end, key){
 	if (start>end) return false;
 	now = (start+end)/2
