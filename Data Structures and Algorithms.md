@@ -1173,10 +1173,38 @@ BinarySearch (A, start, end, key){
 ```
 -------------------------------------------------------
 ### 4.A Non-Comparison-Based Sorter
-- counting sort
-- radix sort
-- bucket sort
-
+- Counting sort
+  - Assume n inputs in range [0...k]
+  - time complexity = O(K+N)
+  - space complexity = O(K+N)
+  - not-inplace, stable
+  - 總會會有三個Array，第一個是原本的A，第二個是新的排序好要丟進去的B，第三個是拿來計算counting的C
+```c++
+CountingSort(A, B, k){
+	int C[k](); // 創counting矩陣
+	for (int i = 0; i<A.length; i++) C[A[i]]++; // 填counting矩陣
+	for (int i = 1; i<k; i++) C[i] = C[i] + C[i-1]; // 填counting矩陣
+	for (int i = A.length-1; i>=0; i--){ //sorting
+		B[ C[A[i]]-1 ] = A[i];
+		C[A[i]]--;
+	}
+}
+```
+- Radix sort
+  - Assume n inputs each with d-digits
+  - time complexity = O(d(K+N))
+  - space complexity = O(d(K+N))
+```c++
+RadixSort(A, d){
+	for (d= 1 to d){ //對每一個digit做stable sort，從低位數sort到高
+		Use a stable sorter to sort array A on digit i //最適合用counting sort，因為每個digit理當只有range1~9
+	}
+}
+```
+- Bucket sort
+  - Distribute element to buckets (例如用第一個數字為區別，1開頭的放在一起，建起一個Adjacent List)
+  - 然後把每個Bucket裡面的東西sort(理論上很少)
+  - 把buckets merge起來
 -------------------------------------------------------
 
 ### 4.7 Depth-First Search
