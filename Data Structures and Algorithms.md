@@ -772,7 +772,7 @@ unsigned int count = m.count("key");
 - The class P:
   - class of problems that can be solved in polynomial time
   - closed under addition, multiplication, composition, complement(logical not) 仍會可解
-- The class NP:
+- The class NP: (nondeterministic polynomial time)
   - class of problems that can be verified in polynomial time 
   - 目前已知是P的話一定是NP，但NP會不會一定是P就不知道了(見文氏圖)
 - The class NP-complete:
