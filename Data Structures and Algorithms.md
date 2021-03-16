@@ -651,6 +651,12 @@ unsigned int count = s.count(20);
 | Remove by Key       |          `O(1)` |
 | Find/Remove Value   |              -- |
 
+- Insert v.s. Emplace v.s Operator[]
+  - emplace: This new element is constructed in place using args as the arguments for the construction of a value_type (which is an object of a pair type).
+  - insert: which either copies or moves existing objects into the container.
+  - operator[]: is a find-or-add operator. It will try to find an element with the given key inside the map, and if it exists it will return a reference to the stored value. If it does not, it will create a new element inserted in place with default initialization and return a reference to it.
+  - insert: (in the single element flavor) takes a value_type (std::pair<const Key,Value>), it uses the key (first member) and tries to insert it. Because std::map does not allow for duplicates if there is an existing element it will not insert anything. Inserts a new element in the map if its key is unique.
+
 **Example Code**
 ```c++
 std::map<std::string, std::string> m;
@@ -688,11 +694,6 @@ bool exists = (m.find("key") != m.end());
 
 // Count the number of elements with a certain key
 unsigned int count = m.count("key");
-```
-```c++
-// Inserts a new element in the map if its key is unique. 
-emplace //: This new element is constructed in place using args as the arguments for the construction of a value_type (which is an object of a pair type).
-insert //: which either copies or moves existing objects into the container.
 ```
 -------------------------------------------------------
 
