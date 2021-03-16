@@ -206,6 +206,11 @@ v.pop_back();                   // tail
 // Clear
 v.clear();
 ```
+```c++
+//Inserts a new element at the end of the vector, right after its current last element. 
+emplace_back //: This new element is constructed in place using args as the arguments for its constructor.
+push_back //: which either copies or moves an existing object into the container.
+```
 -------------------------------------------------------
 ### 1.4 Deque `std::deque`
 - Double ended queue. deque (usually pronounced like "deck") is an irregular acronym of double-ended queue. Double-ended queues are sequence containers with dynamic sizes that can be expanded or contracted on both ends (either its front or its back).
@@ -683,6 +688,11 @@ bool exists = (m.find("key") != m.end());
 
 // Count the number of elements with a certain key
 unsigned int count = m.count("key");
+```
+```c++
+// Inserts a new element in the map if its key is unique. 
+emplace //: This new element is constructed in place using args as the arguments for the construction of a value_type (which is an object of a pair type).
+insert //: which either copies or moves existing objects into the container.
 ```
 -------------------------------------------------------
 
