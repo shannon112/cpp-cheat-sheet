@@ -790,7 +790,7 @@ unsigned int count = m.count("key");
   - problems can be *verified* in polynomial time, but not *solved*. 本身是NP
   - it can be used to simulate any other problem with similar solvability. 可以分解轉換成不同問題in polynomial time，而且那些問題也是NP
 - The class NP-hard:
-  - it can be used to simulate any other problem with similar solvability. 可以分解轉換成不同問題in polynomial time, 而且那些問題也是NP
+  - it can be used to simulate any other problem with similar solvability. 可以分解轉換成不同問題in polynomial time
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/P_np_np-complete_np-hard.svg/1280px-P_np_np-complete_np-hard.svg.png" width=500>
 
