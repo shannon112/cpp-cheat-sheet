@@ -1216,6 +1216,8 @@ RadixSort(A, d){
   - Distribute element to buckets (例如用第一個數字為區別，1開頭的放在一起，建起一個Adjacent List)
   - 然後把每個Bucket裡面的東西sort(理論上很少)
   - 把buckets merge起來
+
+![](Sorting/ClassicalSorter.png)
 -------------------------------------------------------
 
 ### 4.7 Depth-First Search
