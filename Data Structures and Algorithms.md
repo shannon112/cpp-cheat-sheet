@@ -45,7 +45,7 @@
 		- [4.9 Divide And Conquer](#49-divide-and-conquer)
 		- [4.10 Dynamic Programming](#410-dynamic-programming)
 		- [4.11 Greedy Algorithm](#411-greedy-algorithm)
-
+		- [4.12 Complexity](#422-complexity)
 <!-- /TOC -->
 
 
@@ -1373,3 +1373,7 @@ BFS(G,s){
 - optimal substructure (剝洋蔥式的解法，所求必來自前一項，最終將追回base case)
 - e.g. fractional knapsack
 -------------------------------------------------------
+### 4.12 Complexity
+- How to Compute O(log⁡N) Time Complexity
+- <img width="624" alt="圖片" src="https://github.com/user-attachments/assets/2e3f9b6e-8fcc-42e2-9b11-e6b595277beb">
+- <img width="650" alt="圖片" src="https://github.com/user-attachments/assets/2b91fd11-6b80-46ba-848c-c7446d2bfe69">
