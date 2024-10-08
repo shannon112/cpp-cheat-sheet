@@ -811,6 +811,7 @@ LevelOrderTraversal(root):
         if node.right is not null:
             queue.enqueue(node.right)
 ```
+- ![圖片](https://github.com/user-attachments/assets/dde00558-ba19-4fcb-8ef7-8c6ac7ca1c70)
 
 -------------------------------------------------------
 ### 2.2 Balanced Trees
