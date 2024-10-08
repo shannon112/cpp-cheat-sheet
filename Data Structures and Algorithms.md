@@ -764,10 +764,53 @@ unsigned int count = m.count("key");
 
 ![BinarySearchTree](General/BinarySearchTree.png)
 
-- Pre-Order traversal
-- In-Order traversal
-- Post-Order traversal
-- Level-Order traversal
+```
+        1
+       / \
+      2   3
+     / \   \
+    4   5   6
+```
+
+- Pre-Order traversal: 1, 2, 4, 5, 3, 6
+```
+PreOrderTraversal(node):
+    if node is not null:
+        visit(node)
+        PreOrderTraversal(node.left)
+        PreOrderTraversal(node.right)
+```
+- In-Order traversal: 4, 2, 5, 1, 3, 6
+```
+InOrderTraversal(node):
+    if node is not null:
+        InOrderTraversal(node.left)
+        visit(node)
+        InOrderTraversal(node.right)
+```
+- Post-Order traversal: 4, 5, 2, 6, 3, 1
+```
+PostOrderTraversal(node):
+    if node is not null:
+        PostOrderTraversal(node.left)
+        PostOrderTraversal(node.right)
+        visit(node)
+
+```
+- Level-Order traversal: 1, 2, 3, 4, 5, 6
+```
+LevelOrderTraversal(root):
+    queue = new Queue()
+    queue.enqueue(root)
+    
+    while queue is not empty:
+        node = queue.dequeue()
+        visit(node)
+        if node.left is not null:
+            queue.enqueue(node.left)
+        if node.right is not null:
+            queue.enqueue(node.right)
+```
 
 -------------------------------------------------------
 ### 2.2 Balanced Trees
